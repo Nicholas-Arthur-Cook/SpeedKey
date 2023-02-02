@@ -14,6 +14,8 @@
 		EE8401B3298C293900928482 /* SpeedKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401B2298C293900928482 /* SpeedKeyTests.swift */; };
 		EE8401BD298C293900928482 /* SpeedKeyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401BC298C293900928482 /* SpeedKeyUITests.swift */; };
 		EE8401BF298C293900928482 /* SpeedKeyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401BE298C293900928482 /* SpeedKeyUITestsLaunchTests.swift */; };
+		EE8401D2298C29A100928482 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401D1298C29A100928482 /* KeyboardViewController.swift */; };
+		EE8401D6298C29A100928482 /* SpeedKey Keyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EE8401CF298C29A100928482 /* SpeedKey Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +33,28 @@
 			remoteGlobalIDString = EE84019D298C293700928482;
 			remoteInfo = SpeedKey;
 		};
+		EE8401D4298C29A100928482 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE840196298C293700928482 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE8401CE298C29A100928482;
+			remoteInfo = "SpeedKey Keyboard";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EE8401DA298C29A100928482 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EE8401D6298C29A100928482 /* SpeedKey Keyboard.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		EE84019E298C293700928482 /* SpeedKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +67,9 @@
 		EE8401B8298C293900928482 /* SpeedKeyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedKeyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE8401BC298C293900928482 /* SpeedKeyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedKeyUITests.swift; sourceTree = "<group>"; };
 		EE8401BE298C293900928482 /* SpeedKeyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedKeyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EE8401CF298C29A100928482 /* SpeedKey Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SpeedKey Keyboard.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE8401D1298C29A100928482 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		EE8401D3298C29A100928482 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +94,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE8401CC298C29A100928482 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,6 +110,7 @@
 				EE8401A0298C293700928482 /* SpeedKey */,
 				EE8401B1298C293900928482 /* SpeedKeyTests */,
 				EE8401BB298C293900928482 /* SpeedKeyUITests */,
+				EE8401D0298C29A100928482 /* SpeedKey Keyboard */,
 				EE84019F298C293700928482 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +121,7 @@
 				EE84019E298C293700928482 /* SpeedKey.app */,
 				EE8401AE298C293900928482 /* SpeedKeyTests.xctest */,
 				EE8401B8298C293900928482 /* SpeedKeyUITests.xctest */,
+				EE8401CF298C29A100928482 /* SpeedKey Keyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,6 +162,15 @@
 			path = SpeedKeyUITests;
 			sourceTree = "<group>";
 		};
+		EE8401D0298C29A100928482 /* SpeedKey Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				EE8401D1298C29A100928482 /* KeyboardViewController.swift */,
+				EE8401D3298C29A100928482 /* Info.plist */,
+			);
+			path = "SpeedKey Keyboard";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,10 +181,12 @@
 				EE84019A298C293700928482 /* Sources */,
 				EE84019B298C293700928482 /* Frameworks */,
 				EE84019C298C293700928482 /* Resources */,
+				EE8401DA298C29A100928482 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EE8401D5298C29A100928482 /* PBXTargetDependency */,
 			);
 			name = SpeedKey;
 			productName = SpeedKey;
@@ -183,6 +229,23 @@
 			productReference = EE8401B8298C293900928482 /* SpeedKeyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		EE8401CE298C29A100928482 /* SpeedKey Keyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE8401D7298C29A100928482 /* Build configuration list for PBXNativeTarget "SpeedKey Keyboard" */;
+			buildPhases = (
+				EE8401CB298C29A100928482 /* Sources */,
+				EE8401CC298C29A100928482 /* Frameworks */,
+				EE8401CD298C29A100928482 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SpeedKey Keyboard";
+			productName = "SpeedKey Keyboard";
+			productReference = EE8401CF298C29A100928482 /* SpeedKey Keyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -204,6 +267,9 @@
 						CreatedOnToolsVersion = 14.2;
 						TestTargetID = EE84019D298C293700928482;
 					};
+					EE8401CE298C29A100928482 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 				};
 			};
 			buildConfigurationList = EE840199298C293700928482 /* Build configuration list for PBXProject "SpeedKey" */;
@@ -222,6 +288,7 @@
 				EE84019D298C293700928482 /* SpeedKey */,
 				EE8401AD298C293900928482 /* SpeedKeyTests */,
 				EE8401B7298C293900928482 /* SpeedKeyUITests */,
+				EE8401CE298C29A100928482 /* SpeedKey Keyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -244,6 +311,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		EE8401B6298C293900928482 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE8401CD298C29A100928482 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -279,6 +353,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE8401CB298C29A100928482 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE8401D2298C29A100928482 /* KeyboardViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -291,6 +373,11 @@
 			isa = PBXTargetDependency;
 			target = EE84019D298C293700928482 /* SpeedKey */;
 			targetProxy = EE8401B9298C293900928482 /* PBXContainerItemProxy */;
+		};
+		EE8401D5298C29A100928482 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE8401CE298C29A100928482 /* SpeedKey Keyboard */;
+			targetProxy = EE8401D4298C29A100928482 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -412,6 +499,7 @@
 		EE8401C3298C293900928482 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -440,6 +528,7 @@
 		EE8401C4298C293900928482 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -537,6 +626,54 @@
 			};
 			name = Release;
 		};
+		EE8401D8298C29A100928482 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SpeedKey Keyboard/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SpeedKey Keyboard";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "umich.edu.SpeedKey.SpeedKey-Keyboard";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE8401D9298C29A100928482 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SpeedKey Keyboard/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "SpeedKey Keyboard";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "umich.edu.SpeedKey.SpeedKey-Keyboard";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -572,6 +709,15 @@
 			buildConfigurations = (
 				EE8401C9298C293900928482 /* Debug */,
 				EE8401CA298C293900928482 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE8401D7298C29A100928482 /* Build configuration list for PBXNativeTarget "SpeedKey Keyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE8401D8298C29A100928482 /* Debug */,
+				EE8401D9298C29A100928482 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
