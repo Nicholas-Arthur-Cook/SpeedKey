@@ -1,0 +1,582 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EE8401A2298C293700928482 /* SpeedKeyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401A1298C293700928482 /* SpeedKeyApp.swift */; };
+		EE8401A4298C293700928482 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401A3298C293700928482 /* ContentView.swift */; };
+		EE8401A6298C293900928482 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE8401A5298C293900928482 /* Assets.xcassets */; };
+		EE8401A9298C293900928482 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE8401A8298C293900928482 /* Preview Assets.xcassets */; };
+		EE8401B3298C293900928482 /* SpeedKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401B2298C293900928482 /* SpeedKeyTests.swift */; };
+		EE8401BD298C293900928482 /* SpeedKeyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401BC298C293900928482 /* SpeedKeyUITests.swift */; };
+		EE8401BF298C293900928482 /* SpeedKeyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401BE298C293900928482 /* SpeedKeyUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE8401AF298C293900928482 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE840196298C293700928482 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE84019D298C293700928482;
+			remoteInfo = SpeedKey;
+		};
+		EE8401B9298C293900928482 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE840196298C293700928482 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE84019D298C293700928482;
+			remoteInfo = SpeedKey;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EE84019E298C293700928482 /* SpeedKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE8401A1298C293700928482 /* SpeedKeyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedKeyApp.swift; sourceTree = "<group>"; };
+		EE8401A3298C293700928482 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		EE8401A5298C293900928482 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EE8401A8298C293900928482 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EE8401AE298C293900928482 /* SpeedKeyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedKeyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE8401B2298C293900928482 /* SpeedKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedKeyTests.swift; sourceTree = "<group>"; };
+		EE8401B8298C293900928482 /* SpeedKeyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedKeyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE8401BC298C293900928482 /* SpeedKeyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedKeyUITests.swift; sourceTree = "<group>"; };
+		EE8401BE298C293900928482 /* SpeedKeyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedKeyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE84019B298C293700928482 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE8401AB298C293900928482 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE8401B5298C293900928482 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE840195298C293700928482 = {
+			isa = PBXGroup;
+			children = (
+				EE8401A0298C293700928482 /* SpeedKey */,
+				EE8401B1298C293900928482 /* SpeedKeyTests */,
+				EE8401BB298C293900928482 /* SpeedKeyUITests */,
+				EE84019F298C293700928482 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE84019F298C293700928482 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE84019E298C293700928482 /* SpeedKey.app */,
+				EE8401AE298C293900928482 /* SpeedKeyTests.xctest */,
+				EE8401B8298C293900928482 /* SpeedKeyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE8401A0298C293700928482 /* SpeedKey */ = {
+			isa = PBXGroup;
+			children = (
+				EE8401A1298C293700928482 /* SpeedKeyApp.swift */,
+				EE8401A3298C293700928482 /* ContentView.swift */,
+				EE8401A5298C293900928482 /* Assets.xcassets */,
+				EE8401A7298C293900928482 /* Preview Content */,
+			);
+			path = SpeedKey;
+			sourceTree = "<group>";
+		};
+		EE8401A7298C293900928482 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EE8401A8298C293900928482 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EE8401B1298C293900928482 /* SpeedKeyTests */ = {
+			isa = PBXGroup;
+			children = (
+				EE8401B2298C293900928482 /* SpeedKeyTests.swift */,
+			);
+			path = SpeedKeyTests;
+			sourceTree = "<group>";
+		};
+		EE8401BB298C293900928482 /* SpeedKeyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EE8401BC298C293900928482 /* SpeedKeyUITests.swift */,
+				EE8401BE298C293900928482 /* SpeedKeyUITestsLaunchTests.swift */,
+			);
+			path = SpeedKeyUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE84019D298C293700928482 /* SpeedKey */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE8401C2298C293900928482 /* Build configuration list for PBXNativeTarget "SpeedKey" */;
+			buildPhases = (
+				EE84019A298C293700928482 /* Sources */,
+				EE84019B298C293700928482 /* Frameworks */,
+				EE84019C298C293700928482 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpeedKey;
+			productName = SpeedKey;
+			productReference = EE84019E298C293700928482 /* SpeedKey.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EE8401AD298C293900928482 /* SpeedKeyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE8401C5298C293900928482 /* Build configuration list for PBXNativeTarget "SpeedKeyTests" */;
+			buildPhases = (
+				EE8401AA298C293900928482 /* Sources */,
+				EE8401AB298C293900928482 /* Frameworks */,
+				EE8401AC298C293900928482 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE8401B0298C293900928482 /* PBXTargetDependency */,
+			);
+			name = SpeedKeyTests;
+			productName = SpeedKeyTests;
+			productReference = EE8401AE298C293900928482 /* SpeedKeyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EE8401B7298C293900928482 /* SpeedKeyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE8401C8298C293900928482 /* Build configuration list for PBXNativeTarget "SpeedKeyUITests" */;
+			buildPhases = (
+				EE8401B4298C293900928482 /* Sources */,
+				EE8401B5298C293900928482 /* Frameworks */,
+				EE8401B6298C293900928482 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EE8401BA298C293900928482 /* PBXTargetDependency */,
+			);
+			name = SpeedKeyUITests;
+			productName = SpeedKeyUITests;
+			productReference = EE8401B8298C293900928482 /* SpeedKeyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE840196298C293700928482 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					EE84019D298C293700928482 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					EE8401AD298C293900928482 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = EE84019D298C293700928482;
+					};
+					EE8401B7298C293900928482 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = EE84019D298C293700928482;
+					};
+				};
+			};
+			buildConfigurationList = EE840199298C293700928482 /* Build configuration list for PBXProject "SpeedKey" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE840195298C293700928482;
+			productRefGroup = EE84019F298C293700928482 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE84019D298C293700928482 /* SpeedKey */,
+				EE8401AD298C293900928482 /* SpeedKeyTests */,
+				EE8401B7298C293900928482 /* SpeedKeyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE84019C298C293700928482 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE8401A9298C293900928482 /* Preview Assets.xcassets in Resources */,
+				EE8401A6298C293900928482 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE8401AC298C293900928482 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE8401B6298C293900928482 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE84019A298C293700928482 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE8401A4298C293700928482 /* ContentView.swift in Sources */,
+				EE8401A2298C293700928482 /* SpeedKeyApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE8401AA298C293900928482 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE8401B3298C293900928482 /* SpeedKeyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE8401B4298C293900928482 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE8401BF298C293900928482 /* SpeedKeyUITestsLaunchTests.swift in Sources */,
+				EE8401BD298C293900928482 /* SpeedKeyUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE8401B0298C293900928482 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE84019D298C293700928482 /* SpeedKey */;
+			targetProxy = EE8401AF298C293900928482 /* PBXContainerItemProxy */;
+		};
+		EE8401BA298C293900928482 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE84019D298C293700928482 /* SpeedKey */;
+			targetProxy = EE8401B9298C293900928482 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EE8401C0298C293900928482 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EE8401C1298C293900928482 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE8401C3298C293900928482 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SpeedKey/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = umich.edu.SpeedKey;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE8401C4298C293900928482 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SpeedKey/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = umich.edu.SpeedKey;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EE8401C6298C293900928482 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = umich.edu.SpeedKeyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedKey.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeedKey";
+			};
+			name = Debug;
+		};
+		EE8401C7298C293900928482 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = umich.edu.SpeedKeyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedKey.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeedKey";
+			};
+			name = Release;
+		};
+		EE8401C9298C293900928482 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = umich.edu.SpeedKeyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SpeedKey;
+			};
+			name = Debug;
+		};
+		EE8401CA298C293900928482 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = umich.edu.SpeedKeyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SpeedKey;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE840199298C293700928482 /* Build configuration list for PBXProject "SpeedKey" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE8401C0298C293900928482 /* Debug */,
+				EE8401C1298C293900928482 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE8401C2298C293900928482 /* Build configuration list for PBXNativeTarget "SpeedKey" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE8401C3298C293900928482 /* Debug */,
+				EE8401C4298C293900928482 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE8401C5298C293900928482 /* Build configuration list for PBXNativeTarget "SpeedKeyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE8401C6298C293900928482 /* Debug */,
+				EE8401C7298C293900928482 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE8401C8298C293900928482 /* Build configuration list for PBXNativeTarget "SpeedKeyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE8401C9298C293900928482 /* Debug */,
+				EE8401CA298C293900928482 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EE840196298C293700928482 /* Project object */;
+}
