@@ -10,6 +10,6 @@
 
 
 
+
 # Features
 
-// Vibrate on Typo
