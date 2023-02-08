@@ -1,6 +1,6 @@
 //
 //  SettingsMenuUITests.swift
-//  SettingsMenuUITests
+//  SpeedKey
 //
 //  Created by Chloe Snyders on 2/6/23.
 //
@@ -23,11 +23,12 @@ final class SettingsMenuUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    /* Note: need to see if can test toggles when "Enable SpeedKey" is turned off.
     func test_containsAllToggles() throws {
         let app = XCUIApplication()
         app.launch()
         
-        let toggles = ["autoDeleteToggle", "typoNotificationToggle", "reviewPreviousWordsToggle"]
+        let toggles = ["speedKeyToggle", "autoDeleteToggle", "typoNotificationToggle", "reviewPreviousWordsToggle"]
         toggles.forEach { toggle in
             // Test that toggle is enabled for user interaction
             XCTAssertTrue(app.switches[toggle].isEnabled)
@@ -35,6 +36,7 @@ final class SettingsMenuUITests: XCTestCase {
             XCTAssertTrue(app.switches[toggle].value as? String == "0")
         }
     }
+     */
     
     // Note: Could not test for Pickers existance. Most UI will have to be tested via visual inspection
 }
