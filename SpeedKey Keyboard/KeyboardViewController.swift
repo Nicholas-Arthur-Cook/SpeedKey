@@ -244,10 +244,31 @@ class KeyboardViewController: UIInputViewController {
     
     
     }
+    func deleteLastWord() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        var precedingText = proxy.documentContextBeforeInput ?? ""
+        // Get the character before insertion point
+        var lastChar = (precedingText.count != 0) ? precedingText[precedingText.index(before: precedingText.endIndex)] : " "
+        
+        if (lastChar == " "){
+            // Probably from multiple delete actions in a row
+            proxy.deleteBackward()
+            precedingText = proxy.documentContextBeforeInput ?? ""
+            lastChar = (precedingText.count != 0) ? precedingText[precedingText.index(before: precedingText.endIndex)] : " "
+        }
+        
+        
+        // Delete every character up to a space, or the start of the input field
+        while(lastChar != " "){
+            proxy.deleteBackward()
+            precedingText = proxy.documentContextBeforeInput ?? ""
+            lastChar = (precedingText.count != 0) ? precedingText[precedingText.index(before: precedingText.endIndex)] : " "
+        }
+    }
+    
     
     @objc func Swipe(sender: UISwipeGestureRecognizer)
     {
-        let proxy = textDocumentProxy as UITextDocumentProxy
         
         switch sender.direction {
         case .up:
@@ -255,7 +276,7 @@ class KeyboardViewController: UIInputViewController {
         case .down:
             print("Swipe Down")
         case .left:
-            proxy.deleteBackward()
+            deleteLastWord()
         case .right:
             print("Swipe Right")
         default:
