@@ -13,58 +13,37 @@ struct ContentView: View {
                 Text("SpeedKey")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                .foregroundColor(Color(hue: 0.547, saturation: 0.571, brightness:0.819))
-                .padding([.bottom], 20)
-                
-                HStack {
-                    Text("Welcome to SpeedKey! The fast and accurate typing keyboard!")
-                        .multilineTextAlignment(.center)
-                        .font(.subheadline)
-                        .padding([.bottom], 60)
+                    .foregroundColor(Color(hue: 0.547, saturation: 0.571, brightness:0.819))
+                    .padding([.bottom], 20)
                     
-                    
-                    
-                }
-                
-                VStack {
-        
-                    Button(
-                        "Enable SpeedKey",
-                        action: {
-                            //some code
-                            print("Sup")
-                        }
-                        )
-                    
-                    .padding([.bottom], 60)
-                    Button (
-                        "Practice Mode",
-                        action: {
-                            //some code
-                            print("Working on it")
-                        }
-                    )
-                    .padding([.bottom],60)
-                    Button(
-                        "Learn More about SpeedKey",
-                        action: {
-                            //code
-                            print("To-Do")
-                        })
-                    
-                    
-                }// VStack
+                NavigationView {
                         
+                    VStack {
+                            
+                        Text("Welcome to SpeedKey! The fast and accurate typing keyboard!")
+                            .multilineTextAlignment(.center)
+                            .font(.subheadline)
+                            .padding([.bottom], 60)
+                        
+                        NavigationLink(destination: SettingsMenu()) {
+                            Text("Enable SpeedKey")
+                        }
+                        .padding([.bottom], 60)
+                        
+                        NavigationLink(destination: PracticeMode()) {
+                            Text("Practice Mode")
+                        }
+                        .padding([.bottom],60)
                     
+                        NavigationLink(destination: LearnMore()) {
+                            Text("Learn More About SpeedKey")
+                        }
+                        
+                    } // VStack
                     
-                
-               
-               
-            }
+                } // NavigationView
 
-      
-          
-            
+        }
         .padding()
     }
 }
