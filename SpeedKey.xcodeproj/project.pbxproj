@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E040BFDC299160160086999F /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E040BFDB299160160086999F /* SettingsMenu.swift */; };
+		E07B793529918DA300D173BB /* SettingsMenuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07B793429918DA300D173BB /* SettingsMenuUITests.swift */; };
 		EE8401A2298C293700928482 /* SpeedKeyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401A1298C293700928482 /* SpeedKeyApp.swift */; };
 		EE8401A4298C293700928482 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401A3298C293700928482 /* ContentView.swift */; };
 		EE8401A6298C293900928482 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE8401A5298C293900928482 /* Assets.xcassets */; };
@@ -57,6 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E040BFDB299160160086999F /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
+		E07B793429918DA300D173BB /* SettingsMenuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuUITests.swift; sourceTree = "<group>"; };
 		EE84019E298C293700928482 /* SpeedKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE8401A1298C293700928482 /* SpeedKeyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedKeyApp.swift; sourceTree = "<group>"; };
 		EE8401A3298C293700928482 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 				EE8401A3298C293700928482 /* ContentView.swift */,
 				EE8401A5298C293900928482 /* Assets.xcassets */,
 				EE8401A7298C293900928482 /* Preview Content */,
+				E040BFDB299160160086999F /* SettingsMenu.swift */,
 			);
 			path = SpeedKey;
 			sourceTree = "<group>";
@@ -158,6 +163,7 @@
 			children = (
 				EE8401BC298C293900928482 /* SpeedKeyUITests.swift */,
 				EE8401BE298C293900928482 /* SpeedKeyUITestsLaunchTests.swift */,
+				E07B793429918DA300D173BB /* SettingsMenuUITests.swift */,
 			);
 			path = SpeedKeyUITests;
 			sourceTree = "<group>";
@@ -331,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E040BFDC299160160086999F /* SettingsMenu.swift in Sources */,
 				EE8401A4298C293700928482 /* ContentView.swift in Sources */,
 				EE8401A2298C293700928482 /* SpeedKeyApp.swift in Sources */,
 			);
@@ -350,6 +357,7 @@
 			files = (
 				EE8401BF298C293900928482 /* SpeedKeyUITestsLaunchTests.swift in Sources */,
 				EE8401BD298C293900928482 /* SpeedKeyUITests.swift in Sources */,
+				E07B793529918DA300D173BB /* SettingsMenuUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
