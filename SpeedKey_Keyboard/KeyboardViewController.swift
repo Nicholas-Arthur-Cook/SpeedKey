@@ -7,6 +7,8 @@
 
 import UIKit
 
+var caps = false
+
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var testingKeyboard: UIButton!
@@ -178,16 +180,19 @@ class KeyboardViewController: UIInputViewController {
             
         case "return" :
             proxy.insertText("\n")
-        
+            
         case "space" :
             proxy.insertText(" ")
             
-    //TODO: not actually making the character uppercased instead prints "shift"
-        case "SHIFT" :
-            proxy.insertText(title!.uppercased())
+            //TODO: not actually making the character uppercased instead prints "shift"
+        case "shift" :
+            if caps {caps = false}
+            else {caps = true}
+            
             
         default :
-            proxy.insertText(title!)
+            if caps {proxy.insertText(title!.uppercased())}
+            else {proxy.insertText(title!)}
         }
 
     }
