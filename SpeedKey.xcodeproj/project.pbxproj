@@ -118,7 +118,7 @@
 				EE8401A0298C293700928482 /* SpeedKey */,
 				EE8401B1298C293900928482 /* SpeedKeyTests */,
 				EE8401BB298C293900928482 /* SpeedKeyUITests */,
-				EE8401D0298C29A100928482 /* SpeedKey_Keyboard */,
+				EE8401D0298C29A100928482 /* SpeedKey Keyboard */,
 				EE84019F298C293700928482 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -174,13 +174,13 @@
 			path = SpeedKeyUITests;
 			sourceTree = "<group>";
 		};
-		EE8401D0298C29A100928482 /* SpeedKey_Keyboard */ = {
+		EE8401D0298C29A100928482 /* SpeedKey Keyboard */ = {
 			isa = PBXGroup;
 			children = (
 				EE8401D1298C29A100928482 /* KeyboardViewController.swift */,
 				EE8401D3298C29A100928482 /* Info.plist */,
 			);
-			path = SpeedKey_Keyboard;
+			path = "SpeedKey Keyboard";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
