@@ -8,6 +8,8 @@
 import UIKit
 import AudioToolbox
 
+var caps = false
+
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var testingKeyboard: UIButton!
@@ -184,18 +186,21 @@ class KeyboardViewController: UIInputViewController {
             
         case "return" :
             proxy.insertText("\n")
-        
+            
         case "space" :
             proxy.insertText(" ")
             space = true
             
-    //TODO: not actually making the character uppercased instead prints "shift"
+            
+            //TODO: not actually making the character uppercased instead prints "shift"
         case "shift" :
-            proxy.insertText(title!.uppercased())
-    
+            if caps {caps = false}
+            else {caps = true}
+
             
         default :
-            proxy.insertText(title!)
+            if caps {proxy.insertText(title!.uppercased())}
+            else {proxy.insertText(title!)}
         }
         
         
