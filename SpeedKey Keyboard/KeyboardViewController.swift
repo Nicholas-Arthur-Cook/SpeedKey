@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 var caps = false
 
@@ -39,7 +40,7 @@ class KeyboardViewController: UIInputViewController {
         }
         
         if (title == "delete") {
-            button.frame = CGRectMake(0, 0, 10, 1)
+            button.frame = CGRectMake(0, 0, 5, 5)
             button.setBackgroundImage(deleteButton, for: .normal)
             button.setTitle(title, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 0)
@@ -48,16 +49,20 @@ class KeyboardViewController: UIInputViewController {
         }
         
         else {
-            button.frame = CGRectMake(0, 0, 20, 20)
+            //let bubble = UIImage(systemName: "square")
+           // button.setBackgroundImage(bubble, for: .normal)
+            button.frame = CGRectMake(0, 0, 120, 120)
             button.setTitle(title, for: .normal)
             button.sizeToFit()
             button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             button.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
             button.setTitleColor(UIColor.darkGray, for: .normal)
             button.translatesAutoresizingMaskIntoConstraints = false
+            //UIImage(systemName: "square.grid.3x2.fill")
         }
         
-        
+        //UIImage(systemName: "keyboard.fill")
+
         button.addTarget(self, action:#selector(didTapButton), for: .touchUpInside)
         
         return button
@@ -66,7 +71,7 @@ class KeyboardViewController: UIInputViewController {
     
     func createRowOfButtons(buttonTitles: [String]) -> UIView  {
         var buttons = [] as [UIButton]
-        let keyboardRowView = UIView(frame: CGRectMake(0, 0, 320, 50))
+        let keyboardRowView = UIView(frame: CGRectMake(0, 0, 420, 300))
         
         let SwipeLeft = UISwipeGestureRecognizer()
         let SwipeRight = UISwipeGestureRecognizer()
@@ -171,6 +176,7 @@ class KeyboardViewController: UIInputViewController {
     @objc func didTapButton(sender: AnyObject?) {
         let button = sender as! UIButton
         let title = button.title(for: .normal)
+        var space: Bool = false
         let proxy = textDocumentProxy as UITextDocumentProxy
 
         
@@ -183,17 +189,35 @@ class KeyboardViewController: UIInputViewController {
             
         case "space" :
             proxy.insertText(" ")
+            space = true
+            
             
             //TODO: not actually making the character uppercased instead prints "shift"
         case "shift" :
             if caps {caps = false}
             else {caps = true}
-            
+
             
         default :
             if caps {proxy.insertText(title!.uppercased())}
             else {proxy.insertText(title!)}
         }
+        
+        
+        if space == true {
+            let proxy = textDocumentProxy as UITextDocumentProxy
+            let precedingText = proxy.documentContextBeforeInput ?? ""
+            
+            let isTypo = isRealWord(word: precedingText)
+            
+            if (isTypo == true) {
+                print("We got a typo!")
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                
+            }
+        }
+        
+            
 
     }
     
@@ -205,7 +229,7 @@ class KeyboardViewController: UIInputViewController {
     
         
         
-        let buttonTitles1 = ["q", "w", "e", "r", "t", "y", "i", "o", "p"]
+        let buttonTitles1 = ["q", "w", "e", "r", "t", "y","u", "i", "o", "p"]
         let buttonTitles2 = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
         let buttonTitles3 = ["shift", "z", "x", "c", "v", "b", "n", "m", "delete" ]
         let buttonTitles4 = ["space", "return"]
@@ -228,6 +252,9 @@ class KeyboardViewController: UIInputViewController {
         row4.translatesAutoresizingMaskIntoConstraints = false
         
         addConstraintsToInputView(inputView: self.view, rowViews: [row1, row2, row3, row4])
+        
+        
+
         
 
 
@@ -271,6 +298,22 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
+    func isRealWord(word: String) -> Bool {
+        let checker = UITextChecker()
+        let newWord:String = String(word.dropLast())
+        
+        print("word: \(newWord)")
+        //let range = NSRange(location: 0, length: newWord.utf16.count)
+        let misspelledRange = checker.rangeOfMisspelledWord(in: newWord, range: NSRange(0..<newWord.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        
+        //print(misspelledRange.location == NSNotFound)
+
+        return misspelledRange.location != NSNotFound
+    }
+ 
+        
+        
+    
     
     @objc func Swipe(sender: UISwipeGestureRecognizer)
     {
@@ -299,10 +342,12 @@ class KeyboardViewController: UIInputViewController {
     
     override func textWillChange(_ textInput: UITextInput?) {
         // The app is about to change the document's contents. Perform any preparation here.
+        
     }
     
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
+        print("Did Change")
         
         var textColor: UIColor
         let proxy = self.textDocumentProxy
