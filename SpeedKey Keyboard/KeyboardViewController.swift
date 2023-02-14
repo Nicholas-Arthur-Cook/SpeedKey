@@ -9,6 +9,7 @@ import UIKit
 import AudioToolbox
 
 var caps = false
+var buttons: Array<UIButton> = []
 
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
@@ -64,6 +65,7 @@ class KeyboardViewController: UIInputViewController {
         //UIImage(systemName: "keyboard.fill")
 
         button.addTarget(self, action:#selector(didTapButton), for: .touchUpInside)
+        buttons.append(button)
         
         return button
         
@@ -179,23 +181,35 @@ class KeyboardViewController: UIInputViewController {
         var space: Bool = false
         let proxy = textDocumentProxy as UITextDocumentProxy
 
-        
+        //need lower/uppercase for shift funtionality
         switch title {
         case "delete" :
             proxy.deleteBackward()
+        case "DELETE" :
+            proxy.deleteBackward()
             
         case "return" :
+            proxy.insertText("\n")
+        case "RETURN" :
             proxy.insertText("\n")
             
         case "space" :
             proxy.insertText(" ")
             space = true
+        case "SPACE" :
+            proxy.insertText(" ")
+            space = true
             
-            
-            //TODO: not actually making the character uppercased instead prints "shift"
         case "shift" :
             if caps {caps = false}
             else {caps = true}
+            redrawkeyboard()
+        case "SHIFT" :
+            if caps {caps = false}
+            else {caps = true}
+            redrawkeyboard()
+            
+        
 
             
         default :
@@ -359,4 +373,19 @@ class KeyboardViewController: UIInputViewController {
         self.nextKeyboardButton.setTitleColor(textColor, for: [])
     }
 
+}
+
+func redrawkeyboard(){
+    for button in buttons {
+        var text = button.titleLabel?.text
+        if caps {
+            text = text?.uppercased()
+        } else {
+            text = text?.lowercased()
+        }
+        if (text != "SPACE" && text != "RETURN") {
+            button.setTitle(text, for: UIControl.State.normal)
+            button.titleLabel?.sizeToFit()
+        }
+    }
 }
