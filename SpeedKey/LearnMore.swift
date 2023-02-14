@@ -10,6 +10,8 @@ import SwiftUI
 
 struct LearnMore: View {
     var body: some View {
-        Text("Learn more page in progress")
+        Text("About the app")
+        Text("Settings options")
+        Text("Keyboard walkthrough")
     }
 }
