@@ -58,6 +58,9 @@ class KeyboardViewController: UIInputViewController {
         
         button.addTarget(self, action:#selector(didTapButton), for: .touchUpInside)
         
+        button.isAccessibilityElement = true
+        button.accessibilityTraits.insert(UIAccessibilityTraits.keyboardKey)
+        
         return button
         
     }
@@ -197,7 +200,7 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidLoad()
         
         // Perform custom UI setup here
-    
+        super.isAccessibilityElement = true
         
         
         let buttonTitles1 = ["q", "w", "e", "r", "t", "y", "i", "o", "p"]
