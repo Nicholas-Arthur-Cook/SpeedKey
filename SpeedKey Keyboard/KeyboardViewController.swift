@@ -7,6 +7,11 @@
 
 import UIKit
 import AudioToolbox
+import SwiftUI
+import Foundation
+
+var caps = false
+var buttons: Array<UIButton> = []
 
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
@@ -18,50 +23,63 @@ class KeyboardViewController: UIInputViewController {
     override func updateViewConstraints() {
         super.updateViewConstraints()
         
-        
         // Add custom view sizing constraints here
     }
+
     
     func createButtonWithTitle(title:String) -> UIButton {
         let skiftKey = UIImage(systemName: "shift.fill")
         let deleteButton = UIImage(systemName: "delete.left")
         let button = UIButton(type: .system)
         
-        if (title == "shift") {
-            button.frame = CGRectMake(0, 0, 15, 15)
+        if (title == "shift" ) {
+            button.frame = CGRectMake(0, 0, 5, 5)
+    
             button.setBackgroundImage(skiftKey, for: .normal)
             button.setTitle(title, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: -1)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 0)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.sizeToFit()
-            
+//            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
         
-        if (title == "delete") {
+        else if (title == "delete") {
             button.frame = CGRectMake(0, 0, 5, 5)
             button.setBackgroundImage(deleteButton, for: .normal)
             button.setTitle(title, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 0)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.sizeToFit()
+//            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                
         }
         
         else {
-            //let bubble = UIImage(systemName: "square")
-           // button.setBackgroundImage(bubble, for: .normal)
-            button.frame = CGRectMake(0, 0, 120, 120)
+            button.frame = CGRectMake(0, 0, 20, 20)
             button.setTitle(title, for: .normal)
             button.sizeToFit()
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
             button.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
             button.setTitleColor(UIColor.darkGray, for: .normal)
             button.translatesAutoresizingMaskIntoConstraints = false
-            //UIImage(systemName: "square.grid.3x2.fill")
+
+            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            button.layer.cornerRadius = 8
+            button.layer.borderWidth = 2
+            button.layer.borderColor = UIColor.darkGray.cgColor
+            
+
+            
         }
         
         //UIImage(systemName: "keyboard.fill")
 
+        
         button.addTarget(self, action:#selector(didTapButton), for: .touchUpInside)
+        buttons.append(button)
+        
+        button.isAccessibilityElement = true
+        button.accessibilityTraits.insert(UIAccessibilityTraits.keyboardKey)
         
         return button
         
@@ -69,7 +87,7 @@ class KeyboardViewController: UIInputViewController {
     
     func createRowOfButtons(buttonTitles: [String]) -> UIView  {
         var buttons = [] as [UIButton]
-        let keyboardRowView = UIView(frame: CGRectMake(0, 0, 420, 300))
+        let keyboardRowView = UIView(frame: CGRectMake(0, 0, 500, 400))
         
         let SwipeLeft = UISwipeGestureRecognizer()
         let SwipeRight = UISwipeGestureRecognizer()
@@ -161,7 +179,7 @@ class KeyboardViewController: UIInputViewController {
             }
             else {
                 let prevtButton = buttons[index - 1]
-                leftConstraint = NSLayoutConstraint(item: button, attribute: .left, relatedBy: .equal, toItem: prevtButton, attribute: .right, multiplier: 1.0, constant: 1)
+                leftConstraint = NSLayoutConstraint(item: button, attribute: .left, relatedBy: .equal, toItem: prevtButton, attribute: .right, multiplier: 1.3, constant: 1)
                 let firstButton = buttons[0]
                 let widthConstraint = NSLayoutConstraint(item: firstButton, attribute: .width, relatedBy: .equal, toItem: button, attribute: .width, multiplier: 1.0, constant: 0)
                 mainView.addConstraint(widthConstraint)
@@ -177,31 +195,65 @@ class KeyboardViewController: UIInputViewController {
         var space: Bool = false
         let proxy = textDocumentProxy as UITextDocumentProxy
 
-        
+        //need lower/uppercase for shift funtionality
         switch title {
         case "delete" :
+            proxy.deleteBackward()
+        case "DELETE" :
             proxy.deleteBackward()
             
         case "return" :
             proxy.insertText("\n")
-        
+        case "RETURN" :
+            proxy.insertText("\n")
+            
         case "space" :
             proxy.insertText(" ")
             space = true
             
-    //TODO: not actually making the character uppercased instead prints "shift"
+        case "SPACE" :
+            proxy.insertText(" ")
+            space = true
+            
         case "shift" :
-            proxy.insertText(title!.uppercased())
-    
+            if caps {
+                caps = false
+            }
+            else {
+                caps = true
+            }
+            redrawkeyboard()
+            
+            
+        case "SHIFT" :
+            if caps {caps = false}
+            else {caps = true}
+            redrawkeyboard()
+            
+        
+
             
         default :
-            proxy.insertText(title!)
+            if caps {
+                proxy.insertText(title!.uppercased())
+                caps = false
+                redrawkeyboard()
+                print("Did this")
+            }
+            else {proxy.insertText(title!)}
         }
         
         
         if space == true {
+            print("GOT here!")
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
+//            let items = precedingText.components(separatedBy: " ")
+//            let wordToCheck = items[-1]
+//
+//            print("sentence: \(precedingText)")
+//            print("Last word: \(wordToCheck)")
+//
             
             let isTypo = isRealWord(word: precedingText)
             
@@ -221,7 +273,7 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidLoad()
         
         // Perform custom UI setup here
-    
+        super.isAccessibilityElement = true
         
         
         let buttonTitles1 = ["q", "w", "e", "r", "t", "y","u", "i", "o", "p"]
@@ -342,7 +394,7 @@ class KeyboardViewController: UIInputViewController {
     
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
-        print("Did Change")
+       // print("Did Change")
         
         var textColor: UIColor
         let proxy = self.textDocumentProxy
@@ -354,4 +406,19 @@ class KeyboardViewController: UIInputViewController {
         self.nextKeyboardButton.setTitleColor(textColor, for: [])
     }
 
+}
+
+func redrawkeyboard(){
+    for button in buttons {
+        var text = button.titleLabel?.text
+        if caps {
+            text = text?.uppercased()
+        } else {
+            text = text?.lowercased()
+        }
+        if (text != "SPACE" && text != "RETURN") {
+            button.setTitle(text, for: UIControl.State.normal)
+            button.titleLabel?.sizeToFit()
+        }
+    }
 }
