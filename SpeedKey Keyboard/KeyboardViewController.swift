@@ -13,7 +13,6 @@ import Foundation
 var caps = false
 var buttons: Array<UIButton> = []
 
-
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var testingKeyboard: UIButton!
@@ -215,9 +214,6 @@ class KeyboardViewController: UIInputViewController {
             proxy.insertText(" ")
             space = true
             
-        case "SPACE" :
-            proxy.insertText(" ")
-            space = true
             
         case "shift" :
             if caps {
@@ -243,7 +239,6 @@ class KeyboardViewController: UIInputViewController {
                 proxy.insertText(title!.uppercased())
                 caps = false
                 redrawkeyboard()
-                print("Did this")
             }
 
            
@@ -252,24 +247,27 @@ class KeyboardViewController: UIInputViewController {
         
         
         if space == true {
-            print("GOT here!")
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
-//            let items = precedingText.components(separatedBy: " ")
-//            let wordToCheck = items[-1]
-//
-//            print("sentence: \(precedingText)")
-//            print("Last word: \(wordToCheck)")
-//
+            let sentence = String(precedingText.dropLast())
+            let items = sentence.components(separatedBy: " ")
+            let wordToCheck = items.last
+            //print(items)
+
+            //print("sentence: \(sentence)")
+            //print("Last word: \(wordToCheck)")
             
-            let isTypo = isRealWord(word: precedingText)
-            
-            if (isTypo == true) {
-                print("We got a typo!")
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            if (wordToCheck != nil) {
+                let isTypo = isRealWord(word: wordToCheck!)
                 
-            }
-        }
+                if (isTypo == true) {
+                    print("We got a typo!")
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    
+                }
+            } // if wordToCheck != nil
+
+        } // if space = true
         
             
 
@@ -354,11 +352,11 @@ class KeyboardViewController: UIInputViewController {
     
     func isRealWord(word: String) -> Bool {
         let checker = UITextChecker()
-        let newWord:String = String(word.dropLast())
+        //let newWord:String = String(word.dropLast())
         
-        print("word: \(newWord)")
+        //print("word: \(word)")
         //let range = NSRange(location: 0, length: newWord.utf16.count)
-        let misspelledRange = checker.rangeOfMisspelledWord(in: newWord, range: NSRange(0..<newWord.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: NSRange(0..<word.utf16.count), startingAt: 0, wrap: false, language: "en_US")
         
         //print(misspelledRange.location == NSNotFound)
 
