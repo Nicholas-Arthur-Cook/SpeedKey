@@ -13,8 +13,6 @@ import Foundation
 var caps = false
 var buttons: Array<UIButton> = []
 
-var caps = false
-var buttons: Array<UIButton> = []
 
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
