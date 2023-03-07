@@ -9,6 +9,38 @@ import Foundation
 import SwiftUI
 
 
+public class Settings: ObservableObject {
+    
+    enum Shortcut: String, CaseIterable, Identifiable {
+        case sideButton = "Triple-click the side button"
+        case swipeAcross = "Swipe across keyboard"
+        case doubleTap = "Double tap"
+        case swipeUp = "Swipe up"
+        case swipeDown = "Swipe down"
+        var id: Self { self }
+    }
+    
+    @Published var speedKeyOn = false
+    @Published var autoDeleteOn = false
+    @Published var typoNotificationOn = false
+    @Published var reviewPreivousWordsOn = false
+    
+    @Published var notificationType = "Vibrate"
+    @Published var previousWordReviewCount = "5"
+    
+    @Published var entireTextReviewShortcut: Shortcut = .sideButton
+    @Published var jumpToTypoShortcut: Shortcut = .doubleTap
+    @Published var wordDeletionShortcut: Shortcut = .swipeAcross
+    @Published var cursorShortcut: Shortcut = .swipeUp
+    
+    public init() {}
+    
+    public func getWordReviewCount() -> String {
+        return previousWordReviewCount
+    }
+}
+
+
 struct SettingsMenu: View {
     enum Identifiers: String, CaseIterable, Identifiable {
         case speedKeyToggle
@@ -19,15 +51,6 @@ struct SettingsMenu: View {
         case jumpToTypoPicker
         case wordDeletionPicker
         case cursorPicker
-        var id: Self { self }
-    }
-    
-    enum Shortcut: String, CaseIterable, Identifiable {
-        case sideButton = "Triple-click the side button"
-        case swipeAcross = "Swipe across keyboard"
-        case doubleTap = "Double tap"
-        case swipeUp = "Swipe up"
-        case swipeDown = "Swipe down"
         var id: Self { self }
     }
     
@@ -49,48 +72,39 @@ struct SettingsMenu: View {
         var id: Self { self }
     }
     
-    @State private var speedKeyOn = false
-    @State private var autoDeleteOn = false
-    @State private var typoNotificationOn = false
-    @State private var reviewPreivousWordsOn = false
-    
-    @State private var notificationType = "Vibrate"
     let notificationOptions = ["Vibrate", "Ding"]
     
-    @State private var previousWordReviewCount = "5"
     let previousWordCounts = ["5", "10", "15"]
     
-    @State private var entireTextReviewShortcut: Shortcut = .sideButton
-    @State private var jumpToTypoShortcut: Shortcut = .doubleTap
-    @State private var wordDeletionShortcut: Shortcut = .swipeAcross
-    @State private var cursorShortcut: Shortcut = .swipeUp
+    @ObservedObject var settings: Settings = Settings()
     
     var body: some View {
+        
         VStack {
             Section { // Enable SpeedKey
-                Toggle("Enable SpeedKey", isOn: $speedKeyOn)
+                Toggle("Enable SpeedKey", isOn: $settings.speedKeyOn)
                     .id(Identifiers.speedKeyToggle.rawValue)
                     .accessibilityIdentifier(Identifiers.speedKeyToggle.rawValue)
-                    .accessibilityHint(speedKeyOn ? Hints.disableSpeedKey.rawValue : Hints.enableSpeedKey.rawValue)
+                    .accessibilityHint(settings.speedKeyOn ? Hints.disableSpeedKey.rawValue : Hints.enableSpeedKey.rawValue)
             } // Section
             .padding([.bottom], 20)
                 
             Section { // Toggles
                 
                 // Auto Delete Toggle
-                Toggle("Enable auto-delete on typo", isOn: $autoDeleteOn)
+                Toggle("Enable auto-delete on typo", isOn: $settings.autoDeleteOn)
                     .id(Identifiers.autoDeleteToggle.rawValue)
                     .accessibilityIdentifier(Identifiers.autoDeleteToggle.rawValue)
-                    .accessibilityHint(autoDeleteOn ? Hints.disableAutoDelete.rawValue : Hints.enableAutoDelete.rawValue)
+                    .accessibilityHint(settings.autoDeleteOn ? Hints.disableAutoDelete.rawValue : Hints.enableAutoDelete.rawValue)
                 
                 // Typo Notification Toggle
-                Toggle("Enable typo notification", isOn: $typoNotificationOn)
+                Toggle("Enable typo notification", isOn: $settings.typoNotificationOn)
                     .id(Identifiers.typoNotificationToggle.rawValue)
                     .accessibilityIdentifier(Identifiers.typoNotificationToggle.rawValue)
-                    .accessibilityHint(typoNotificationOn ? Hints.disableTypoNotification.rawValue : Hints.enableTypoNotification.rawValue)
+                    .accessibilityHint(settings.typoNotificationOn ? Hints.disableTypoNotification.rawValue : Hints.enableTypoNotification.rawValue)
                 
-                if typoNotificationOn{
-                    Picker("Select notification type", selection: $notificationType) {
+                if settings.typoNotificationOn{
+                    Picker("Select notification type", selection: $settings.notificationType) {
                         ForEach(notificationOptions, id: \.self) {
                             Text($0)
                                 .accessibilityLabel("\($0) on typo")
@@ -101,13 +115,13 @@ struct SettingsMenu: View {
                 }
                 
                 // Review Previous Words Toggle
-                Toggle("Enable review of previous 5, 10, or 15 words", isOn: $reviewPreivousWordsOn)
+                Toggle("Enable review of previous 5, 10, or 15 words", isOn: $settings.reviewPreivousWordsOn)
                     .id(Identifiers.reviewPreviousWordsToggle.rawValue)
                     .accessibilityIdentifier(Identifiers.reviewPreviousWordsToggle.rawValue)
-                    .accessibilityHint(reviewPreivousWordsOn ? Hints.disableWordReview.rawValue : Hints.enableWordReview.rawValue)
+                    .accessibilityHint(settings.reviewPreivousWordsOn ? Hints.disableWordReview.rawValue : Hints.enableWordReview.rawValue)
                 
-                if reviewPreivousWordsOn{
-                    Picker("Word count:", selection: $previousWordReviewCount) {
+                if settings.reviewPreivousWordsOn{
+                    Picker("Word count:", selection: $settings.previousWordReviewCount) {
                         ForEach(previousWordCounts, id: \.self) {
                             Text($0)
                                 .accessibilityLabel("\($0) words")
@@ -122,8 +136,8 @@ struct SettingsMenu: View {
                 Text("Customize Shortcuts:")
                 
                 List {
-                    Picker("Review entire text", selection: $entireTextReviewShortcut) {
-                        ForEach(Shortcut.allCases) { shortcut in
+                    Picker("Review entire text", selection: $settings.entireTextReviewShortcut) {
+                        ForEach(Settings.Shortcut.allCases) { shortcut in
                             Text(shortcut.rawValue)
                                 .accessibilityLabel(shortcut.rawValue)
                         }
@@ -132,8 +146,8 @@ struct SettingsMenu: View {
                         .accessibilityHint(Hints.selectShortcutReviewText.rawValue)
                     }
                     
-                    Picker("Jump to typo", selection: $jumpToTypoShortcut) {
-                        ForEach(Shortcut.allCases) { shortcut in
+                    Picker("Jump to typo", selection: $settings.jumpToTypoShortcut) {
+                        ForEach(Settings.Shortcut.allCases) { shortcut in
                             Text(shortcut.rawValue)
                                 .accessibilityLabel(shortcut.rawValue)
                         }
@@ -142,8 +156,8 @@ struct SettingsMenu: View {
                         .accessibilityHint(Hints.selectShortcutJumpTypo.rawValue)
                     }
                     
-                    Picker("Word deletion", selection: $wordDeletionShortcut) {
-                        ForEach(Shortcut.allCases) { shortcut in
+                    Picker("Word deletion", selection: $settings.wordDeletionShortcut) {
+                        ForEach(Settings.Shortcut.allCases) { shortcut in
                             Text(shortcut.rawValue)
                                 .accessibilityLabel(shortcut.rawValue)
                         }
@@ -152,8 +166,8 @@ struct SettingsMenu: View {
                         .accessibilityHint(Hints.selectShortcutWordDeletion.rawValue)
                     }
                     
-                    Picker("Move cursor to end", selection: $cursorShortcut) {
-                        ForEach(Shortcut.allCases) { shortcut in
+                    Picker("Move cursor to end", selection: $settings.cursorShortcut) {
+                        ForEach(Settings.Shortcut.allCases) { shortcut in
                             Text(shortcut.rawValue)
                                 .accessibilityLabel(shortcut.rawValue)
                         }
