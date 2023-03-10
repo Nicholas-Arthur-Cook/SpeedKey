@@ -18,8 +18,8 @@ class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var testingKeyboard: UIButton!
 
-    
-
+    let textReviewer = ReviewText()
+    var typedWordCount = 0
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -68,14 +68,10 @@ class KeyboardViewController: UIInputViewController {
             button.layer.cornerRadius = 8
             button.layer.borderWidth = 2
             button.layer.borderColor = UIColor.darkGray.cgColor
-            
-
-            
         }
         
         //UIImage(systemName: "keyboard.fill")
 
-        
         button.addTarget(self, action:#selector(didTapButton), for: .touchUpInside)
         buttons.append(button)
         
@@ -83,8 +79,8 @@ class KeyboardViewController: UIInputViewController {
         button.accessibilityTraits.insert(UIAccessibilityTraits.keyboardKey)
         
         return button
-        
     }
+    
     
     func createRowOfButtons(buttonTitles: [String]) -> UIView  {
         var buttons = [] as [UIButton]
@@ -117,8 +113,8 @@ class KeyboardViewController: UIInputViewController {
         }
         addIndividualButtonConstraints(buttons: buttons, mainView: keyboardRowView)
         return keyboardRowView
-        
     }
+    
     
     func addConstraintsToInputView(inputView: UIView, rowViews: [UIView]) {
         
@@ -157,6 +153,7 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
+    
     func addIndividualButtonConstraints(buttons:[UIButton], mainView: UIView) {
 
         for (index, button) in buttons.enumerated() {
@@ -190,6 +187,7 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
+    
     @objc func didTapButton(sender: AnyObject?) {
         let button = sender as! UIButton
         let title = button.title(for: .normal)
@@ -215,10 +213,6 @@ class KeyboardViewController: UIInputViewController {
             proxy.insertText(" ")
             space = true
             
-        case "SPACE" :
-            proxy.insertText(" ")
-            space = true
-            
         case "shift" :
             if caps {
                 caps = false
@@ -227,15 +221,10 @@ class KeyboardViewController: UIInputViewController {
                 caps = true
             }
             redrawkeyboard()
-            
-
         case "SHIFT" :
             if caps {caps = false}
             else {caps = true}
             redrawkeyboard()
-            
-        
-
             
         default :
 
@@ -246,33 +235,28 @@ class KeyboardViewController: UIInputViewController {
                 print("Did this")
             }
 
-           
             else {proxy.insertText(title!)}
         }
         
         
         if space == true {
             print("GOT here!")
-            let proxy = textDocumentProxy as UITextDocumentProxy
+            
+            typedWordCount += 1
+            
             let precedingText = proxy.documentContextBeforeInput ?? ""
-//            let items = precedingText.components(separatedBy: " ")
-//            let wordToCheck = items[-1]
-//
-//            print("sentence: \(precedingText)")
-//            print("Last word: \(wordToCheck)")
-//
             
-            let isTypo = isRealWord(word: precedingText)
-            
-            if (isTypo == true) {
+            if (isTypo(text: precedingText)) {
                 print("We got a typo!")
                 AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                
+            }
+            
+            if (typedWordCount == 5) {
+                // TODO: need to replace 5's with the user customization
+                typedWordCount = 0
+                textReviewer.reviewPreviousWords(precedingText: precedingText, count: 5)
             }
         }
-        
-            
-
     }
     
     
@@ -281,7 +265,6 @@ class KeyboardViewController: UIInputViewController {
         
         // Perform custom UI setup here
         super.isAccessibilityElement = true
-        
         
         let buttonTitles1 = ["q", "w", "e", "r", "t", "y","u", "i", "o", "p"]
         let buttonTitles2 = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
@@ -306,12 +289,6 @@ class KeyboardViewController: UIInputViewController {
         row4.translatesAutoresizingMaskIntoConstraints = false
         
         addConstraintsToInputView(inputView: self.view, rowViews: [row1, row2, row3, row4])
-        
-        
-
-        
-
-
    
         self.nextKeyboardButton = UIButton(type: .system)
         
@@ -325,11 +302,9 @@ class KeyboardViewController: UIInputViewController {
         
         self.nextKeyboardButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-         
-
-    
-    
     }
+    
+    
     func deleteLastWord() {
         let proxy = textDocumentProxy as UITextDocumentProxy
         var precedingText = proxy.documentContextBeforeInput ?? ""
@@ -352,25 +327,20 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    func isRealWord(word: String) -> Bool {
+    
+    func isTypo(text: String) -> Bool {
         let checker = UITextChecker()
-        let newWord:String = String(word.dropLast())
+        let split = text.split(separator: " ")
+        let lastWord = String(split.suffix(1).joined(separator: [" "]))
         
-        print("word: \(newWord)")
-        //let range = NSRange(location: 0, length: newWord.utf16.count)
-        let misspelledRange = checker.rangeOfMisspelledWord(in: newWord, range: NSRange(0..<newWord.utf16.count), startingAt: 0, wrap: false, language: "en_US")
-        
-        //print(misspelledRange.location == NSNotFound)
+        print("lastWord: \(lastWord)")
+        let misspelledRange = checker.rangeOfMisspelledWord(in: lastWord, range: NSRange(0..<lastWord.utf16.count), startingAt: 0, wrap: false, language: "en_US")
 
         return misspelledRange.location != NSNotFound
     }
  
-        
-        
     
-    
-    @objc func Swipe(sender: UISwipeGestureRecognizer)
-    {
+    @objc func Swipe(sender: UISwipeGestureRecognizer) {
         
         switch sender.direction {
         case .up:
@@ -381,23 +351,24 @@ class KeyboardViewController: UIInputViewController {
             deleteLastWord()
         case .right:
             print("Swipe Right")
+            let proxy = textDocumentProxy as UITextDocumentProxy
+            textReviewer.reviewEntireText(proxy: proxy)
         default:
             print("swipe error")
         }
     }
     
 
-    
-
     override func viewWillLayoutSubviews() {
         self.nextKeyboardButton.isHidden = !self.needsInputModeSwitchKey
         super.viewWillLayoutSubviews()
     }
+
     
     override func textWillChange(_ textInput: UITextInput?) {
         // The app is about to change the document's contents. Perform any preparation here.
-        
     }
+    
     
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
@@ -412,8 +383,8 @@ class KeyboardViewController: UIInputViewController {
         }
         self.nextKeyboardButton.setTitleColor(textColor, for: [])
     }
-
 }
+
 
 func redrawkeyboard(){
     for button in buttons {
