@@ -13,7 +13,6 @@ import Foundation
 var caps = false
 var buttons: Array<UIButton> = []
 
-
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var testingKeyboard: UIButton!
@@ -213,6 +212,7 @@ class KeyboardViewController: UIInputViewController {
             proxy.insertText(" ")
             space = true
             
+
         case "shift" :
             if caps {
                 caps = false
@@ -232,7 +232,6 @@ class KeyboardViewController: UIInputViewController {
                 proxy.insertText(title!.uppercased())
                 caps = false
                 redrawkeyboard()
-                print("Did this")
             }
 
             else {proxy.insertText(title!)}
