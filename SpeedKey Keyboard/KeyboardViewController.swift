@@ -240,23 +240,33 @@ class KeyboardViewController: UIInputViewController {
         
         
         if space == true {
-            print("GOT here!")
-            
-            typedWordCount += 1
-            
+            let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
+            let sentence = String(precedingText.dropLast())
+            let items = sentence.components(separatedBy: " ")
+            let wordToCheck = items.last
+            //print(items)
+
+            //print("sentence: \(sentence)")
+            //print("Last word: \(wordToCheck)")
             
-            if (isTypo(text: precedingText)) {
-                print("We got a typo!")
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-            }
+            if (wordToCheck != nil) {
+                let isTypo = isRealWord(word: wordToCheck!)
+                
+                if (isTypo == true) {
+                    print("We got a typo!")
+                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    
+                }
+            } // if wordToCheck != nil
             
             if (typedWordCount == 5) {
                 // TODO: need to replace 5's with the user customization
                 typedWordCount = 0
                 textReviewer.reviewPreviousWords(precedingText: precedingText, count: 5)
             }
-        }
+
+        } // if space = true
     }
     
     
@@ -327,14 +337,15 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
-    
-    func isTypo(text: String) -> Bool {
+    func isRealWord(word: String) -> Bool {
         let checker = UITextChecker()
-        let split = text.split(separator: " ")
-        let lastWord = String(split.suffix(1).joined(separator: [" "]))
+        //let newWord:String = String(word.dropLast())
         
-        print("lastWord: \(lastWord)")
-        let misspelledRange = checker.rangeOfMisspelledWord(in: lastWord, range: NSRange(0..<lastWord.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        //print("word: \(word)")
+        //let range = NSRange(location: 0, length: newWord.utf16.count)
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: NSRange(0..<word.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        
+        //print(misspelledRange.location == NSNotFound)
 
         return misspelledRange.location != NSNotFound
     }
