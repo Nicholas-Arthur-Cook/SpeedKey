@@ -319,6 +319,7 @@ class KeyboardViewController: UIInputViewController {
         var precedingText = proxy.documentContextBeforeInput ?? ""
         // Get the character before insertion point
         var lastChar = (precedingText.count != 0) ? precedingText[precedingText.index(before: precedingText.endIndex)] : " "
+        var wordDeleted = ""
         
         if (lastChar == " "){
             // Probably from multiple delete actions in a row
@@ -330,10 +331,15 @@ class KeyboardViewController: UIInputViewController {
         
         // Delete every character up to a space, or the start of the input field
         while(lastChar != " "){
+            wordDeleted = String(lastChar) + wordDeleted
             proxy.deleteBackward()
             precedingText = proxy.documentContextBeforeInput ?? ""
             lastChar = (precedingText.count != 0) ? precedingText[precedingText.index(before: precedingText.endIndex)] : " "
         }
+        
+        self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
+            proxy.insertText(wordDeleted + " ")
+            })
     }
     
     func isRealWord(word: String) -> Bool {
@@ -354,7 +360,8 @@ class KeyboardViewController: UIInputViewController {
         
         switch sender.direction {
         case .up:
-            print("Swipe Up")
+            print("Undo")
+            self.undoManager?.undo()
         case .down:
             print("Swipe Down")
         case .left:
