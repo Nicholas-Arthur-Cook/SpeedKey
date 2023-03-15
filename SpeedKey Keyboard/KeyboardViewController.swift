@@ -275,6 +275,11 @@ class KeyboardViewController: UIInputViewController {
         // Perform custom UI setup here
         super.isAccessibilityElement = true
         
+        if !self.hasFullAccess {
+            print("Note: Text-to-speech will not work")
+            // create an alert in SettingsMenu.swift, see TODO in that file for more info
+        }
+        
         let buttonTitles1 = ["q", "w", "e", "r", "t", "y","u", "i", "o", "p"]
         let buttonTitles2 = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
         let buttonTitles3 = ["shift", "z", "x", "c", "v", "b", "n", "m", "delete" ]

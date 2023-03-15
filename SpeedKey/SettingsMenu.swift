@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 
+// TODO: when SpeedKey is enabled, need to check that keyboard has full access -- if full access is not granted (hasFullAccess), then need to display a popup/alert to tell user to turn on "Allow Full Access" in iPhone settings menu, see https://developer.apple.com/documentation/swiftui/view/alert(_:ispresented:presenting:actions:message:)-8584l for how to create an alert
+    //Note: https://shyngys.com/ios-custom-keyboard-guide shows how to open keyboard settings menu
+
 
 public class Settings: ObservableObject {
     
