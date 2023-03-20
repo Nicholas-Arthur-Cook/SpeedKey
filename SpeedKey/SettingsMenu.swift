@@ -11,15 +11,10 @@ import SwiftUI
 
 let defaults: Defaults = Defaults()
 
+let notificationOptions = ["Vibrate", "Ding"]
+let previousWordCounts = ["5", "10", "15"]
+let shortcuts = ["Swipe up", "Swipe down", "Swipe right", "Swipe left"]
 
-enum Shortcut: String, CaseIterable, Identifiable {
-    case sideButton = "Triple-click the side button"
-    case swipeAcross = "Swipe across keyboard"
-    case doubleTap = "Double tap"
-    case swipeUp = "Swipe up"
-    case swipeDown = "Swipe down"
-    var id: Self { self }
-}
 
 struct SettingsMenu: View {
     enum Identifiers: String, CaseIterable, Identifiable {
@@ -52,27 +47,18 @@ struct SettingsMenu: View {
         var id: Self { self }
     }
     
-    let notificationOptions = ["Vibrate", "Ding"]
-    
-    let previousWordCounts = ["5", "10", "15"]
-    
-    @State private var speedKeyOn = false {
-        didSet {
-            print("speedKeyOn value did change")
-        }
-    }
-    
+    @State private var speedKeyOn = false
     @State private var autoDeleteOn = false
     @State private var typoNotificationOn = false
     @State private var reviewPreivousWordsOn = false
     
-    @State private var notificationType = "Vibrate"
-    @State var previousWordReviewCount = "5"
+    @State private var notificationType = notificationOptions[0]
+    @State var previousWordReviewCount = previousWordCounts[0]
     
-    @State private var entireTextReviewShortcut: Shortcut = .sideButton
-    @State private var jumpToTypoShortcut: Shortcut = .doubleTap
-    @State private var wordDeletionShortcut: Shortcut = .swipeAcross
-    @State private var cursorShortcut: Shortcut = .swipeUp
+    @State private var entireTextReviewShortcut = shortcuts[0]
+    @State private var jumpToTypoShortcut = shortcuts[1]
+    @State private var wordDeletionShortcut = shortcuts[2]
+    @State private var cursorShortcut = shortcuts[3]
     
     var body: some View {
         
@@ -80,15 +66,6 @@ struct SettingsMenu: View {
             Section { // Enable SpeedKey
                 Toggle("Enable SpeedKey", isOn: $speedKeyOn)
                     .onChange(of: speedKeyOn) { value in
-                        print("updated speedKeyOn -- onChange")
-                        defaults.update(value: value, key: "speedKeyOn")
-                    }
-                    .onTapGesture {
-                        print("updated speedKeyOn -- onTapGesture")
-                        defaults.update(value: speedKeyOn, key: "speedKeyOn")
-                    }
-                    .onReceive([speedKeyOn].publisher.first()) { (value) in
-                        print("updated speedKeyOn -- onReceive")
                         defaults.update(value: value, key: "speedKeyOn")
                     }
                     .id(Identifiers.speedKeyToggle.rawValue)
@@ -160,9 +137,9 @@ struct SettingsMenu: View {
                 
                 List {
                     Picker("Review entire text", selection: $entireTextReviewShortcut) {
-                        ForEach(Shortcut.allCases) { shortcut in
-                            Text(shortcut.rawValue)
-                                .accessibilityLabel(shortcut.rawValue)
+                        ForEach(shortcuts, id: \.self) {
+                            Text($0)
+                                .accessibilityLabel("\($0)")
                         }
                         .onChange(of: entireTextReviewShortcut) { value in
                             defaults.update(value: entireTextReviewShortcut, key: "entireTextReviewShortcut")
@@ -173,9 +150,9 @@ struct SettingsMenu: View {
                     }
                     
                     Picker("Jump to typo", selection: $jumpToTypoShortcut) {
-                        ForEach(Shortcut.allCases) { shortcut in
-                            Text(shortcut.rawValue)
-                                .accessibilityLabel(shortcut.rawValue)
+                        ForEach(shortcuts, id: \.self) {
+                            Text($0)
+                                .accessibilityLabel("\($0)")
                         }
                         .onChange(of: jumpToTypoShortcut) { value in
                             defaults.update(value: jumpToTypoShortcut, key: "jumpToTypoShortcut")
@@ -186,9 +163,9 @@ struct SettingsMenu: View {
                     }
                     
                     Picker("Word deletion", selection: $wordDeletionShortcut) {
-                        ForEach(Shortcut.allCases) { shortcut in
-                            Text(shortcut.rawValue)
-                                .accessibilityLabel(shortcut.rawValue)
+                        ForEach(shortcuts, id: \.self) {
+                            Text($0)
+                                .accessibilityLabel("\($0)")
                         }
                         .onChange(of: wordDeletionShortcut) { value in
                             defaults.update(value: wordDeletionShortcut, key: "wordDeletionShortcut")
@@ -199,9 +176,9 @@ struct SettingsMenu: View {
                     }
                     
                     Picker("Move cursor to end", selection: $cursorShortcut) {
-                        ForEach(Shortcut.allCases) { shortcut in
-                            Text(shortcut.rawValue)
-                                .accessibilityLabel(shortcut.rawValue)
+                        ForEach(shortcuts, id: \.self) {
+                            Text($0)
+                                .accessibilityLabel("\($0)")
                         }
                         .onChange(of: cursorShortcut) { value in
                             defaults.update(value: cursorShortcut, key: "cursorShortcut")

@@ -17,6 +17,7 @@ class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var testingKeyboard: UIButton!
 
+    let defaults = AccessDefaults()
     let textReviewer = ReviewText()
     var typedWordCount = 0
 
@@ -239,8 +240,7 @@ class KeyboardViewController: UIInputViewController {
         
         
         if space == true {
-            let previousWordReviewCount = getSetting(key: "previousWordReviewCount") as! String
-            print("previousWordReviewCount :", previousWordReviewCount)
+            typedWordCount += 1
             
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
@@ -262,10 +262,10 @@ class KeyboardViewController: UIInputViewController {
                 }
             } // if wordToCheck != nil
             
-            if (typedWordCount == 5) {
-                // TODO: need to replace 5's with the user customization
+            let previousWordReviewCount = Int(defaults.getPreviousWordReviewCount()) ?? 5
+            if (defaults.getReviewPreivousWordsOn() == true && typedWordCount == previousWordReviewCount) {
                 typedWordCount = 0
-                textReviewer.reviewPreviousWords(precedingText: precedingText, count: 5)
+                textReviewer.reviewPreviousWords(precedingText: precedingText, count: previousWordReviewCount)
             }
 
         } // if space = true
@@ -419,10 +419,4 @@ func redrawkeyboard(){
             button.titleLabel?.sizeToFit()
         }
     }
-}
-
-func getSetting(key: String) -> Any? {
-    let defaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
-    let value = defaults?.object(forKey: key)
-    return value != nil ? value : ""
 }

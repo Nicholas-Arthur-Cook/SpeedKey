@@ -11,6 +11,7 @@
 		E025B6AA29941E5400996864 /* LearnMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E025B6A929941E5400996864 /* LearnMore.swift */; };
 		E040BFDC299160160086999F /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E040BFDB299160160086999F /* SettingsMenu.swift */; };
 		E052CAAA29C7F65100A6908C /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E052CAA929C7F65100A6908C /* Defaults.swift */; };
+		E061D2F629C8D4FB006D5E9D /* AccessDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E061D2F529C8D4FB006D5E9D /* AccessDefaults.swift */; };
 		E07B793529918DA300D173BB /* SettingsMenuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07B793429918DA300D173BB /* SettingsMenuUITests.swift */; };
 		E0FE97C929BFC3E8002A71F7 /* ReviewText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FE97C829BFC3E7002A71F7 /* ReviewText.swift */; };
 		EE8401A2298C293700928482 /* SpeedKeyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8401A1298C293700928482 /* SpeedKeyApp.swift */; };
@@ -69,6 +70,7 @@
 		E052CAA729C7F49500A6908C /* SpeedKey.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedKey.entitlements; sourceTree = "<group>"; };
 		E052CAA829C7F4F200A6908C /* SpeedKey Keyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SpeedKey Keyboard.entitlements"; sourceTree = "<group>"; };
 		E052CAA929C7F65100A6908C /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		E061D2F529C8D4FB006D5E9D /* AccessDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessDefaults.swift; sourceTree = "<group>"; };
 		E07B793429918DA300D173BB /* SettingsMenuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenuUITests.swift; sourceTree = "<group>"; };
 		E0FE97C829BFC3E7002A71F7 /* ReviewText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewText.swift; sourceTree = "<group>"; };
 		EE84019E298C293700928482 /* SpeedKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,6 +191,7 @@
 				EE8401D1298C29A100928482 /* KeyboardViewController.swift */,
 				EE8401D3298C29A100928482 /* Info.plist */,
 				E0FE97C829BFC3E7002A71F7 /* ReviewText.swift */,
+				E061D2F529C8D4FB006D5E9D /* AccessDefaults.swift */,
 			);
 			path = "SpeedKey Keyboard";
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E061D2F629C8D4FB006D5E9D /* AccessDefaults.swift in Sources */,
 				E0FE97C929BFC3E8002A71F7 /* ReviewText.swift in Sources */,
 				EE8401D2298C29A100928482 /* KeyboardViewController.swift in Sources */,
 			);
