@@ -17,6 +17,7 @@ class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
     @IBOutlet var testingKeyboard: UIButton!
 
+    let defaults = AccessDefaults()
     let textReviewer = ReviewText()
     var typedWordCount = 0
 
@@ -239,30 +240,32 @@ class KeyboardViewController: UIInputViewController {
         
         
         if space == true {
+            typedWordCount += 1
+            
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
             let sentence = String(precedingText.dropLast())
             let items = sentence.components(separatedBy: " ")
             let wordToCheck = items.last
-            //print(items)
-
-            //print("sentence: \(sentence)")
-            //print("Last word: \(wordToCheck)")
             
             if (wordToCheck != nil) {
                 let isTypo = isRealWord(word: wordToCheck!)
                 
-                if (isTypo == true) {
-                    print("We got a typo!")
-                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                if (isTypo == true && defaults.getTypoNotificationOn()) {
+                    if (defaults.getNotificationType() == "Vibrate") {
+                        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    }
+                    else {
+                        // TODO: Ding
+                    }
                     
                 }
             } // if wordToCheck != nil
             
-            if (typedWordCount == 5) {
-                // TODO: need to replace 5's with the user customization
+            let previousWordReviewCount = Int(defaults.getPreviousWordReviewCount()) ?? 5
+            if (defaults.getReviewPreivousWordsOn() == true && typedWordCount == previousWordReviewCount) {
                 typedWordCount = 0
-                textReviewer.reviewPreviousWords(precedingText: precedingText, count: 5)
+                textReviewer.reviewPreviousWords(precedingText: precedingText, count: previousWordReviewCount)
             }
 
         } // if space = true
