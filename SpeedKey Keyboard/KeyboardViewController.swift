@@ -247,17 +247,17 @@ class KeyboardViewController: UIInputViewController {
             let sentence = String(precedingText.dropLast())
             let items = sentence.components(separatedBy: " ")
             let wordToCheck = items.last
-            //print(items)
-
-            //print("sentence: \(sentence)")
-            //print("Last word: \(wordToCheck)")
             
             if (wordToCheck != nil) {
                 let isTypo = isRealWord(word: wordToCheck!)
                 
-                if (isTypo == true) {
-                    print("We got a typo!")
-                    AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                if (isTypo == true && defaults.getTypoNotificationOn()) {
+                    if (defaults.getNotificationType() == "Vibrate") {
+                        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    }
+                    else {
+                        // TODO: Ding
+                    }
                     
                 }
             } // if wordToCheck != nil
