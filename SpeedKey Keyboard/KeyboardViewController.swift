@@ -239,6 +239,9 @@ class KeyboardViewController: UIInputViewController {
         
         
         if space == true {
+            let previousWordReviewCount = getSetting(key: "previousWordReviewCount") as! String
+            print("previousWordReviewCount :", previousWordReviewCount)
+            
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
             let sentence = String(precedingText.dropLast())
@@ -416,4 +419,10 @@ func redrawkeyboard(){
             button.titleLabel?.sizeToFit()
         }
     }
+}
+
+func getSetting(key: String) -> Any? {
+    let defaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
+    let value = defaults?.object(forKey: key)
+    return value != nil ? value : ""
 }
