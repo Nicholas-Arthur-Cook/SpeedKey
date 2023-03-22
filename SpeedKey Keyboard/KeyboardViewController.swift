@@ -12,6 +12,7 @@ import Foundation
 
 var caps = false
 var buttons: Array<UIButton> = []
+var timer: Timer?
 
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
@@ -41,7 +42,6 @@ class KeyboardViewController: UIInputViewController {
             button.titleLabel?.font = UIFont.systemFont(ofSize: 0)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.sizeToFit()
-//            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
         
         else if (title == "delete") {
@@ -51,8 +51,10 @@ class KeyboardViewController: UIInputViewController {
             button.titleLabel?.font = UIFont.systemFont(ofSize: 0)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.sizeToFit()
-//            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                
+            
+            // Long press delete
+            var longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(_:)))
+            button.addGestureRecognizer(longPressRecognizer)
         }
         
         else {
@@ -356,6 +358,21 @@ class KeyboardViewController: UIInputViewController {
         //print(misspelledRange.location == NSNotFound)
 
         return misspelledRange.location != NSNotFound
+    }
+    
+    
+    @objc func handleTimer(_ timer: Timer) {
+        self.textDocumentProxy.deleteBackward()
+    }
+    
+    
+    @objc func longPressHandler(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(handleTimer(_:)), userInfo: nil, repeats: true)
+        } else if gesture.state == .ended || gesture.state == .cancelled {
+            timer?.invalidate()
+            timer = nil
+        }
     }
  
     
