@@ -9,10 +9,12 @@ import UIKit
 import AudioToolbox
 import SwiftUI
 import Foundation
+import AVFoundation
 
 var caps = false
 var buttons: Array<UIButton> = []
 var timer: Timer?
+var ding: AVAudioPlayer?
 
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
@@ -66,7 +68,7 @@ class KeyboardViewController: UIInputViewController {
             button.setTitleColor(UIColor.darkGray, for: .normal)
             button.translatesAutoresizingMaskIntoConstraints = false
 
-            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            //button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
             button.layer.cornerRadius = 8
             button.layer.borderWidth = 2
             button.layer.borderColor = UIColor.darkGray.cgColor
@@ -256,11 +258,19 @@ class KeyboardViewController: UIInputViewController {
                 if (isTypo == true && defaults.getTypoNotificationOn()) {
                     if (defaults.getNotificationType() == "Vibrate") {
                         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                        proxy.insertText("vibrate")
                     }
                     else {
-                        // TODO: Ding
-                    }
+                        
+                        proxy.insertText("ding")
+                        let systemSoundID: SystemSoundID = 1151
+                        AudioServicesPlaySystemSound(systemSoundID)
+                    } //else
                     
+                }
+                
+                if (isTypo == true && defaults.getAutoDeleteOn()) {
+                    deleteLastWord()
                 }
             } // if wordToCheck != nil
             
