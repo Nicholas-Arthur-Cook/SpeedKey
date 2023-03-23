@@ -13,7 +13,6 @@ import AVFoundation
 
 var caps = false
 var buttons: Array<UIButton> = []
-var timer: Timer?
 var ding: AVAudioPlayer?
 
 class KeyboardViewController: UIInputViewController {
@@ -44,6 +43,7 @@ class KeyboardViewController: UIInputViewController {
             button.titleLabel?.font = UIFont.systemFont(ofSize: 0)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.sizeToFit()
+//            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
         
         else if (title == "delete") {
@@ -53,10 +53,8 @@ class KeyboardViewController: UIInputViewController {
             button.titleLabel?.font = UIFont.systemFont(ofSize: 0)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.sizeToFit()
-            
-            // Long press delete
-            var longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(_:)))
-            button.addGestureRecognizer(longPressRecognizer)
+//            button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                
         }
         
         else {
@@ -369,37 +367,86 @@ class KeyboardViewController: UIInputViewController {
 
         return misspelledRange.location != NSNotFound
     }
-    
-    
-    @objc func handleTimer(_ timer: Timer) {
-        self.textDocumentProxy.deleteBackward()
-    }
-    
-    
-    @objc func longPressHandler(_ gesture: UILongPressGestureRecognizer) {
-        if gesture.state == .began {
-            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(handleTimer(_:)), userInfo: nil, repeats: true)
-        } else if gesture.state == .ended || gesture.state == .cancelled {
-            timer?.invalidate()
-            timer = nil
-        }
-    }
  
     
     @objc func Swipe(sender: UISwipeGestureRecognizer) {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        
         
         switch sender.direction {
         case .up:
-            print("Undo")
-            self.undoManager?.undo()
+            
+            if (defaults.getEntireTextReviewShortcut() == "Swipe up") {
+                textReviewer.reviewEntireText(proxy: proxy)
+            }
+            else if (defaults.getJumpToTypoShortcut() == "Swipe up") {
+                
+                //TODO: place jump to typo function here!!!!
+            }
+            else if (defaults.getWordDeletionShortcut() == "Swipe up") {
+                deleteLastWord()
+            }
+            
+            else if (defaults.getCursorShortcut() == "Swipe up") {
+                //TODO: place cursor shortcut here!
+            }
+            
+    
         case .down:
             print("Swipe Down")
+            
+            if (defaults.getEntireTextReviewShortcut() == "Swipe down") {
+                textReviewer.reviewEntireText(proxy: proxy)
+            }
+            else if (defaults.getJumpToTypoShortcut() == "Swipe down") {
+                
+                //TODO: place jump to typo function here!!!!
+            }
+            else if (defaults.getWordDeletionShortcut() == "Swipe down") {
+                deleteLastWord()
+            }
+            
+            else if (defaults.getCursorShortcut() == "Swipe down") {
+                //TODO: place cursor shortcut here!
+            }
+            
+            
+        
+            
         case .left:
-            deleteLastWord()
+            
+            if (defaults.getEntireTextReviewShortcut() == "Swipe left") {
+                textReviewer.reviewEntireText(proxy: proxy)
+            }
+            else if (defaults.getJumpToTypoShortcut() == "Swipe left") {
+                
+                //TODO: place jump to typo function here!!!!
+            }
+            else if (defaults.getWordDeletionShortcut() == "Swipe left") {
+                deleteLastWord()
+            }
+            
+            else if (defaults.getCursorShortcut() == "Swipe left") {
+                //TODO: place cursor shortcut here!
+            }
+            
+            
         case .right:
             print("Swipe Right")
-            let proxy = textDocumentProxy as UITextDocumentProxy
-            textReviewer.reviewEntireText(proxy: proxy)
+           
+            if (defaults.getEntireTextReviewShortcut() == "Swipe right") {
+                textReviewer.reviewEntireText(proxy: proxy)
+            }
+            else if (defaults.getJumpToTypoShortcut() == "Swipe right") {
+                //TODO: place jump to typo function here!!!!
+            }
+            else if (defaults.getWordDeletionShortcut() == "Swipe right") {
+                deleteLastWord()
+            }
+            
+            else if (defaults.getCursorShortcut() == "Swipe right") {
+                //TODO: place cursor shortcut here!
+            }
         default:
             print("swipe error")
         }
