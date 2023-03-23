@@ -14,6 +14,8 @@ import Foundation
 var caps = false
 var buttons: Array<UIButton> = []
 var timer: Timer?
+var charsOn: Bool = false
+var specialOn: Bool = false
 
 class KeyboardViewController: UIInputViewController {
     @IBOutlet var nextKeyboardButton: UIButton!
@@ -28,6 +30,62 @@ class KeyboardViewController: UIInputViewController {
         
         // Add custom view sizing constraints here
     }
+    
+    func drawSpecialChars() {
+        //print("got here")
+        charsOn = true
+        view.subviews.forEach({ $0.removeFromSuperview() })
+        let specialbutton1 = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+        let specialbutton2 = ["-", "/", ":", ";", "(", ")", "$", "&", "\""]
+        let specialbutton3 = ["shift",".", ",", "?", "!", "\'", "delete"]
+        let specialbutton4 = ["space", "return"]
+        
+        let row1 = createRowOfButtons(buttonTitles: specialbutton1)
+        let row2 = createRowOfButtons(buttonTitles: specialbutton2)
+        let row3 = createRowOfButtons(buttonTitles: specialbutton3)
+        let row4 = createRowOfButtons(buttonTitles: specialbutton4)
+        
+        self.view.addSubview(row1)
+        self.view.addSubview(row2)
+        self.view.addSubview(row3)
+        self.view.addSubview(row4)
+        
+        row1.translatesAutoresizingMaskIntoConstraints = false
+        row2.translatesAutoresizingMaskIntoConstraints = false
+        row3.translatesAutoresizingMaskIntoConstraints = false
+        row4.translatesAutoresizingMaskIntoConstraints = false
+        
+        addConstraintsToInputView(inputView: self.view, rowViews: [row1, row2, row3, row4])
+        
+    }
+    
+    func drawSpecialChars2() {
+        specialOn = true
+        view.subviews.forEach({ $0.removeFromSuperview() })
+        let specialbutton1 = ["[", "]", "{", "}", "#", "%", "^", "*", "+", "="]
+        let specialbutton2 = ["_", "\\", "|", "~", "<", ">", "$", "&", "\""]
+        let specialbutton3 = ["shift",".", ",", "?", "!", "\'", "delete"]
+        let specialbutton4 = ["space", "return"]
+        
+        let row1 = createRowOfButtons(buttonTitles: specialbutton1)
+        let row2 = createRowOfButtons(buttonTitles: specialbutton2)
+        let row3 = createRowOfButtons(buttonTitles: specialbutton3)
+        let row4 = createRowOfButtons(buttonTitles: specialbutton4)
+        
+        self.view.addSubview(row1)
+        self.view.addSubview(row2)
+        self.view.addSubview(row3)
+        self.view.addSubview(row4)
+        
+        row1.translatesAutoresizingMaskIntoConstraints = false
+        row2.translatesAutoresizingMaskIntoConstraints = false
+        row3.translatesAutoresizingMaskIntoConstraints = false
+        row4.translatesAutoresizingMaskIntoConstraints = false
+        
+        addConstraintsToInputView(inputView: self.view, rowViews: [row1, row2, row3, row4])
+    }
+
+
 
     
     func createButtonWithTitle(title:String) -> UIButton {
@@ -43,6 +101,8 @@ class KeyboardViewController: UIInputViewController {
             button.titleLabel?.font = UIFont.systemFont(ofSize: 0)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.sizeToFit()
+
+           
         }
         
         else if (title == "delete") {
@@ -54,10 +114,11 @@ class KeyboardViewController: UIInputViewController {
             button.sizeToFit()
             
             // Long press delete
-            var longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(_:)))
+            let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressHandler(_:)))
                         button.addGestureRecognizer(longPressRecognizer)
                 
         }
+   
         
         else {
             button.frame = CGRectMake(0, 0, 20, 20)
@@ -71,6 +132,16 @@ class KeyboardViewController: UIInputViewController {
             button.layer.cornerRadius = 8
             button.layer.borderWidth = 2
             button.layer.borderColor = UIColor.darkGray.cgColor
+            
+            if title == "space" {
+                let longPressForChars = UILongPressGestureRecognizer(target:self, action: #selector(pressForChars(_:)))
+                    button.addGestureRecognizer(longPressForChars)
+                }
+            else if title == "return" {
+                let longPressForSpecial = UILongPressGestureRecognizer(target:self, action: #selector(pressForSpecial(_:)))
+                button.addGestureRecognizer(longPressForSpecial)
+            }
+            
         }
         
         //UIImage(systemName: "keyboard.fill")
@@ -282,19 +353,16 @@ class KeyboardViewController: UIInputViewController {
         } // if space = true
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func drawKeyboard() {
+        charsOn = false
+        specialOn = false
         
-        // Perform custom UI setup here
-        super.isAccessibilityElement = true
-        
+        view.subviews.forEach({ $0.removeFromSuperview() })
         let buttonTitles1 = ["q", "w", "e", "r", "t", "y","u", "i", "o", "p"]
         let buttonTitles2 = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
         let buttonTitles3 = ["shift", "z", "x", "c", "v", "b", "n", "m", "delete" ]
         let buttonTitles4 = ["space", "return"]
         
-        //var sparkle = UIImage(systemName: "sparkle")
         
         let row1 = createRowOfButtons(buttonTitles: buttonTitles1)
         let row2 = createRowOfButtons(buttonTitles: buttonTitles2)
@@ -312,6 +380,22 @@ class KeyboardViewController: UIInputViewController {
         row4.translatesAutoresizingMaskIntoConstraints = false
         
         addConstraintsToInputView(inputView: self.view, rowViews: [row1, row2, row3, row4])
+    }
+    
+
+    
+
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Perform custom UI setup here
+        super.isAccessibilityElement = true
+        if (charsOn == false && specialOn == false){
+            view.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+            drawKeyboard()
+        }
+        
    
         self.nextKeyboardButton = UIButton(type: .system)
         
@@ -358,14 +442,9 @@ class KeyboardViewController: UIInputViewController {
     
     func isRealWord(word: String) -> Bool {
         let checker = UITextChecker()
-        //let newWord:String = String(word.dropLast())
-        
-        //print("word: \(word)")
-        //let range = NSRange(location: 0, length: newWord.utf16.count)
-        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: NSRange(0..<word.utf16.count), startingAt: 0, wrap: false, language: "en_US")
-        
-        //print(misspelledRange.location == NSNotFound)
 
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: NSRange(0..<word.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+   
         return misspelledRange.location != NSNotFound
     }
     
@@ -380,6 +459,27 @@ class KeyboardViewController: UIInputViewController {
         } else if gesture.state == .ended || gesture.state == .cancelled {
             timer?.invalidate()
             timer = nil
+        }
+    }
+    
+    @objc func pressForSpecial(_ gesture:UILongPressGestureRecognizer) {
+        if (gesture.state == .began && specialOn == false) {
+            drawSpecialChars2()
+        }
+        else if (gesture.state == .began && specialOn == true) {
+            drawKeyboard()
+        }
+    }
+    
+    
+    
+    @objc func pressForChars(_ gesture: UILongPressGestureRecognizer) {
+        if (gesture.state == .began && charsOn == false) {
+            drawSpecialChars()
+            
+        }
+        else if (gesture.state == .began && charsOn == true) {
+            drawKeyboard()
         }
     }
  
@@ -430,6 +530,7 @@ class KeyboardViewController: UIInputViewController {
             
         case .left:
             
+            
             if (defaults.getEntireTextReviewShortcut() == "Swipe left") {
                 textReviewer.reviewEntireText(proxy: proxy)
             }
@@ -447,7 +548,7 @@ class KeyboardViewController: UIInputViewController {
             
             
         case .right:
-            print("Swipe Right")
+    
            
             if (defaults.getEntireTextReviewShortcut() == "Swipe right") {
                 textReviewer.reviewEntireText(proxy: proxy)
@@ -510,6 +611,6 @@ func redrawkeyboard(){
     }
 }
 
-//func showSpecialChars(_gestureRecognizer : UILongPressGestureRecognizer) {
-//    if gestureRe
-//}
+
+
+
