@@ -8,8 +8,6 @@
 import Foundation
 
 class AccessDefaults {
-    private let defaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
-    
     private func getSetting(key: String) -> Any? {
         let defaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
         return defaults?.object(forKey: key)
