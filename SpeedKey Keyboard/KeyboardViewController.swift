@@ -450,12 +450,13 @@ class KeyboardViewController: UIInputViewController {
     
     //swift does not really support directly moving the input cursor. Instead change the text field itself by editing text position
     func jumpToEnd() {
-        var proxy = textDocumentProxy as UITextDocumentProxy
-        var preceding = proxy.documentContextAfterInput
-        var offset = preceding?.count
-        proxy.adjustTextPosition(byCharacterOffset: offset!)
-        
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        let preceding = proxy.documentContextAfterInput
+        let offset = preceding?.count ?? 0
+        if offset != 0 {
+            proxy.adjustTextPosition(byCharacterOffset: offset)
         }
+    }
     
     @objc func handleTimer(_ timer: Timer) {
         self.textDocumentProxy.deleteBackward()
@@ -491,87 +492,34 @@ class KeyboardViewController: UIInputViewController {
             drawKeyboard()
         }
     }
+    
+    func determineAction(shortcut: String) {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        if (defaults.getEntireTextReviewShortcut() == shortcut) {
+            textReviewer.reviewEntireText(proxy: proxy)
+        }
+        else if (defaults.getJumpToTypoShortcut() == shortcut) {
+            //TODO: place jump to typo function here!!!!
+        }
+        else if (defaults.getWordDeletionShortcut() == shortcut) {
+            deleteLastWord()
+        }
+        else if (defaults.getCursorShortcut() == shortcut) {
+            jumpToEnd()
+        }
+    }
  
     
     @objc func Swipe(sender: UISwipeGestureRecognizer) {
-        let proxy = textDocumentProxy as UITextDocumentProxy
-        
-        
         switch sender.direction {
         case .up:
-            
-            if (defaults.getEntireTextReviewShortcut() == "Swipe up") {
-                textReviewer.reviewEntireText(proxy: proxy)
-            }
-            else if (defaults.getJumpToTypoShortcut() == "Swipe up") {
-                
-                //TODO: place jump to typo function here!!!!
-            }
-            else if (defaults.getWordDeletionShortcut() == "Swipe up") {
-                deleteLastWord()
-            }
-            
-            else if (defaults.getCursorShortcut() == "Swipe up") {
-                jumpToEnd()
-            }
-            
-    
+            determineAction(shortcut: "Swipe up")
         case .down:
-            print("Swipe Down")
-            
-            if (defaults.getEntireTextReviewShortcut() == "Swipe down") {
-                textReviewer.reviewEntireText(proxy: proxy)
-            }
-            else if (defaults.getJumpToTypoShortcut() == "Swipe down") {
-                
-                //TODO: place jump to typo function here!!!!
-            }
-            else if (defaults.getWordDeletionShortcut() == "Swipe down") {
-                deleteLastWord()
-            }
-            
-            else if (defaults.getCursorShortcut() == "Swipe down") {
-                jumpToEnd()
-            }
-            
-            
-        
-            
+            determineAction(shortcut: "Swipe down")
         case .left:
-            
-            
-            if (defaults.getEntireTextReviewShortcut() == "Swipe left") {
-                textReviewer.reviewEntireText(proxy: proxy)
-            }
-            else if (defaults.getJumpToTypoShortcut() == "Swipe left") {
-                
-                //TODO: place jump to typo function here!!!!
-            }
-            else if (defaults.getWordDeletionShortcut() == "Swipe left") {
-                deleteLastWord()
-            }
-            
-            else if (defaults.getCursorShortcut() == "Swipe left") {
-                jumpToEnd()
-            }
-            
-            
+            determineAction(shortcut: "Swipe left")
         case .right:
-    
-           
-            if (defaults.getEntireTextReviewShortcut() == "Swipe right") {
-                textReviewer.reviewEntireText(proxy: proxy)
-            }
-            else if (defaults.getJumpToTypoShortcut() == "Swipe right") {
-                //TODO: place jump to typo function here!!!!
-            }
-            else if (defaults.getWordDeletionShortcut() == "Swipe right") {
-                deleteLastWord()
-            }
-            
-            else if (defaults.getCursorShortcut() == "Swipe right") {
-                jumpToEnd()
-            }
+            determineAction(shortcut: "Swipe right")
         default:
             print("swipe error")
         }
