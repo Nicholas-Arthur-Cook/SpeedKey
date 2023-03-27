@@ -313,44 +313,32 @@ class KeyboardViewController: UIInputViewController {
         }
         
         
-        if space == true {
+        if space {
             typedWordCount += 1
             
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
-            let sentence = String(precedingText.dropLast())
-            let items = sentence.components(separatedBy: " ")
-            let wordToCheck = items.last
             
-            if (wordToCheck != nil) {
-                let isTypo = isRealWord(word: wordToCheck!)
-                
-                if (isTypo == true && defaults.getTypoNotificationOn()) {
-                    if (defaults.getNotificationType() == "Vibrate") {
+            let isTypo: Bool = isLastWordTypo(precedingText: precedingText)
+            if isTypo {
+                if (defaults.getTypoNotificationOn()) {
+                    if (defaults.getNotificationType() == "Vibrate") { // Vibrate
                         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                        proxy.insertText("vibrate")
-                    }
-                    else {
-                        
-                        proxy.insertText("ding")
+                    } else { // Ding
                         let systemSoundID: SystemSoundID = 1151
                         AudioServicesPlaySystemSound(systemSoundID)
-                    } //else
+                    }
+                }
                     
-                }
-                
-                if (isTypo == true && defaults.getAutoDeleteOn()) {
-                    deleteLastWord()
-                }
-            } // if wordToCheck != nil
+                if (defaults.getAutoDeleteOn()) {deleteLastWord()}
+            } // isTypo
             
-            let previousWordReviewCount = Int(defaults.getPreviousWordReviewCount()) ?? 5
-            if (defaults.getReviewPreivousWordsOn() == true && typedWordCount == previousWordReviewCount) {
+            let previousWordReviewCount = defaults.getPreviousWordReviewCount()
+            if (defaults.getReviewPreivousWordsOn() && typedWordCount == previousWordReviewCount) {
                 typedWordCount = 0
                 textReviewer.reviewPreviousWords(precedingText: precedingText, count: previousWordReviewCount)
             }
-
-        } // if space = true
+        } // space
     }
     
     func drawKeyboard() {
@@ -440,10 +428,16 @@ class KeyboardViewController: UIInputViewController {
             })
     }
     
-    func isRealWord(word: String) -> Bool {
+    func isLastWordTypo(precedingText: String) -> Bool {
+        let sentence = String(precedingText.dropLast())
+        let items = sentence.components(separatedBy: " ")
+        let wordToCheck = items.last ?? ""
+        if wordToCheck == "" {
+            return false
+        }
+        
         let checker = UITextChecker()
-
-        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: NSRange(0..<word.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        let misspelledRange = checker.rangeOfMisspelledWord(in: wordToCheck, range: NSRange(0..<wordToCheck.utf16.count), startingAt: 0, wrap: false, language: "en_US")
    
         return misspelledRange.location != NSNotFound
     }
