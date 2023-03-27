@@ -448,6 +448,15 @@ class KeyboardViewController: UIInputViewController {
         return misspelledRange.location != NSNotFound
     }
     
+    //swift does not really support directly moving the input cursor. Instead change the text field itself by editing text position
+    func jumpToEnd() {
+        var proxy = textDocumentProxy as UITextDocumentProxy
+        var preceding = proxy.documentContextAfterInput
+        var offset = preceding?.count
+        proxy.adjustTextPosition(byCharacterOffset: offset!)
+        
+        }
+    
     @objc func handleTimer(_ timer: Timer) {
         self.textDocumentProxy.deleteBackward()
     }
@@ -503,7 +512,7 @@ class KeyboardViewController: UIInputViewController {
             }
             
             else if (defaults.getCursorShortcut() == "Swipe up") {
-                //TODO: place cursor shortcut here!
+                jumpToEnd()
             }
             
     
@@ -522,7 +531,7 @@ class KeyboardViewController: UIInputViewController {
             }
             
             else if (defaults.getCursorShortcut() == "Swipe down") {
-                //TODO: place cursor shortcut here!
+                jumpToEnd()
             }
             
             
@@ -543,7 +552,7 @@ class KeyboardViewController: UIInputViewController {
             }
             
             else if (defaults.getCursorShortcut() == "Swipe left") {
-                //TODO: place cursor shortcut here!
+                jumpToEnd()
             }
             
             
@@ -561,7 +570,7 @@ class KeyboardViewController: UIInputViewController {
             }
             
             else if (defaults.getCursorShortcut() == "Swipe right") {
-                //TODO: place cursor shortcut here!
+                jumpToEnd()
             }
         default:
             print("swipe error")
