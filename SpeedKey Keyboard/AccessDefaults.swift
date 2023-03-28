@@ -27,8 +27,8 @@ class AccessDefaults {
         return getSetting(key: "notificationType") as? String ?? "Vibrate"
     }
     
-    public func getPreviousWordReviewCount() -> String {
-        return getSetting(key: "previousWordReviewCount") as? String ?? "5"
+    public func getPreviousWordReviewCount() -> Int {
+        return Int(getSetting(key: "previousWordReviewCount") as? String ?? "5") ?? 5
     }
     
     public func getEntireTextReviewShortcut() -> String {

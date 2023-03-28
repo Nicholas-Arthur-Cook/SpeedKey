@@ -312,44 +312,32 @@ class KeyboardViewController: UIInputViewController {
         }
         
         
-        if space == true {
+        if space {
             typedWordCount += 1
             
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
-            let sentence = String(precedingText.dropLast())
-            let items = sentence.components(separatedBy: " ")
-            let wordToCheck = items.last
             
-            if (wordToCheck != nil) {
-                let isTypo = isRealWord(word: wordToCheck!)
-                
-                if (isTypo == true && defaults.getTypoNotificationOn()) {
-                    if (defaults.getNotificationType() == "Vibrate") {
+            let isTypo: Bool = isLastWordTypo(precedingText: precedingText)
+            if isTypo {
+                if (defaults.getTypoNotificationOn()) {
+                    if (defaults.getNotificationType() == "Vibrate") { // Vibrate
                         AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                        proxy.insertText("vibrate")
-                    }
-                    else {
-                        
-                        proxy.insertText("ding")
+                    } else { // Ding
                         let systemSoundID: SystemSoundID = 1151
                         AudioServicesPlaySystemSound(systemSoundID)
-                    } //else
+                    }
+                }
                     
-                }
-                
-                if (isTypo == true && defaults.getAutoDeleteOn()) {
-                    deleteLastWord()
-                }
-            } // if wordToCheck != nil
+                if (defaults.getAutoDeleteOn()) {deleteLastWord()}
+            } // isTypo
             
-            let previousWordReviewCount = Int(defaults.getPreviousWordReviewCount()) ?? 5
-            if (defaults.getReviewPreivousWordsOn() == true && typedWordCount == previousWordReviewCount) {
+            let previousWordReviewCount = defaults.getPreviousWordReviewCount()
+            if (defaults.getReviewPreivousWordsOn() && typedWordCount == previousWordReviewCount) {
                 typedWordCount = 0
                 textReviewer.reviewPreviousWords(precedingText: precedingText, count: previousWordReviewCount)
             }
-
-        } // if space = true
+        } // space
     }
     
     func drawKeyboard() {
@@ -439,11 +427,17 @@ class KeyboardViewController: UIInputViewController {
             })
     }
     
-    
-    func isRealWord(word: String) -> Bool {
-        let checker = UITextChecker()
 
-        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: NSRange(0..<word.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+
+    func isLastWordTypo(precedingText: String) -> Bool {
+        let sentence = String(precedingText.dropLast())
+        let items = sentence.components(separatedBy: " ")
+        let wordToCheck = items.last ?? ""
+        if wordToCheck == "" {
+            return false
+        }
+        let checker = UITextChecker()
+        let misspelledRange = checker.rangeOfMisspelledWord(in: wordToCheck, range: NSRange(0..<wordToCheck.utf16.count), startingAt: 0, wrap: false, language: "en_US")
    
         return misspelledRange.location != NSNotFound
     }
@@ -452,10 +446,12 @@ class KeyboardViewController: UIInputViewController {
     func jumpToEnd() {
         let proxy = textDocumentProxy as UITextDocumentProxy
         let preceding = proxy.documentContextAfterInput
-        let offset = preceding?.count
-        proxy.adjustTextPosition(byCharacterOffset: offset!)
-        
+
+        let offset = preceding?.count ?? 0
+        if offset != 0 {
+            proxy.adjustTextPosition(byCharacterOffset: offset)
         }
+    }
     
     func jumpToTypo() {
         let proxy = textDocumentProxy as UITextDocumentProxy
@@ -514,82 +510,34 @@ class KeyboardViewController: UIInputViewController {
             drawKeyboard()
         }
     }
+    
+    func determineAction(shortcut: String) {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        if (defaults.getEntireTextReviewShortcut() == shortcut) {
+            textReviewer.reviewEntireText(proxy: proxy)
+        }
+        else if (defaults.getJumpToTypoShortcut() == shortcut) {
+            //TODO: place jump to typo function here!!!!
+        }
+        else if (defaults.getWordDeletionShortcut() == shortcut) {
+            deleteLastWord()
+        }
+        else if (defaults.getCursorShortcut() == shortcut) {
+            jumpToEnd()
+        }
+    }
  
     
     @objc func Swipe(sender: UISwipeGestureRecognizer) {
-        let proxy = textDocumentProxy as UITextDocumentProxy
-        
-        
         switch sender.direction {
         case .up:
-            
-            if (defaults.getEntireTextReviewShortcut() == "Swipe up") {
-                textReviewer.reviewEntireText(proxy: proxy)
-            }
-            else if (defaults.getJumpToTypoShortcut() == "Swipe up") {
-                jumpToTypo()
-            }
-            else if (defaults.getWordDeletionShortcut() == "Swipe up") {
-                deleteLastWord()
-            }
-            else if (defaults.getCursorShortcut() == "Swipe up") {
-                jumpToEnd()
-            }
-            
-    
+            determineAction(shortcut: "Swipe up")
         case .down:
-            print("Swipe Down")
-            
-            if (defaults.getEntireTextReviewShortcut() == "Swipe down") {
-                textReviewer.reviewEntireText(proxy: proxy)
-            }
-            else if (defaults.getJumpToTypoShortcut() == "Swipe down") {
-                jumpToTypo()
-            }
-            else if (defaults.getWordDeletionShortcut() == "Swipe down") {
-                deleteLastWord()
-            }
-            else if (defaults.getCursorShortcut() == "Swipe down") {
-                jumpToEnd()
-            }
-            
-            
-        
-            
+            determineAction(shortcut: "Swipe down")
         case .left:
-            
-            
-            if (defaults.getEntireTextReviewShortcut() == "Swipe left") {
-                textReviewer.reviewEntireText(proxy: proxy)
-            }
-            else if (defaults.getJumpToTypoShortcut() == "Swipe left") {
-                jumpToTypo()
-            }
-            else if (defaults.getWordDeletionShortcut() == "Swipe left") {
-                deleteLastWord()
-            }
-            
-            else if (defaults.getCursorShortcut() == "Swipe left") {
-                jumpToEnd()
-            }
-            
-            
+            determineAction(shortcut: "Swipe left")
         case .right:
-    
-           
-            if (defaults.getEntireTextReviewShortcut() == "Swipe right") {
-                textReviewer.reviewEntireText(proxy: proxy)
-            }
-            else if (defaults.getJumpToTypoShortcut() == "Swipe right") {
-                jumpToTypo()
-            }
-            else if (defaults.getWordDeletionShortcut() == "Swipe right") {
-                deleteLastWord()
-            }
-            
-            else if (defaults.getCursorShortcut() == "Swipe right") {
-                jumpToEnd()
-            }
+            determineAction(shortcut: "Swipe right")
         default:
             print("swipe error")
         }
