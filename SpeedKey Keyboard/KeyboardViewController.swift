@@ -286,7 +286,6 @@ class KeyboardViewController: UIInputViewController {
         case "SPACE" :
             proxy.insertText(" ")
             space = true
-            
 
         case "shift" :
             if caps {
@@ -440,6 +439,7 @@ class KeyboardViewController: UIInputViewController {
             })
     }
     
+    
     func isRealWord(word: String) -> Bool {
         let checker = UITextChecker()
 
@@ -450,12 +450,35 @@ class KeyboardViewController: UIInputViewController {
     
     //swift does not really support directly moving the input cursor. Instead change the text field itself by editing text position
     func jumpToEnd() {
-        var proxy = textDocumentProxy as UITextDocumentProxy
-        var preceding = proxy.documentContextAfterInput
-        var offset = preceding?.count
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        let preceding = proxy.documentContextAfterInput
+        let offset = preceding?.count
         proxy.adjustTextPosition(byCharacterOffset: offset!)
         
         }
+    
+    func jumpToTypo() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        let precedingText = proxy.documentContextBeforeInput ?? ""
+        //array of words in text with the last word first
+        let components = precedingText.components(separatedBy: " ").reversed()
+        //number of chars before typo
+        var offset = 0
+        for str in components {
+            let isTypo = isRealWord(word: str)
+            if isTypo {
+                proxy.adjustTextPosition(byCharacterOffset: offset)
+                break
+            }
+            //if not a typo, add word len to offset
+            else{
+                //negative offset bc we are mvoing the cursor backwards
+                //+1 to account for whitespace
+                offset -= (str.count + 1)
+            }
+        }
+   
+    }
     
     @objc func handleTimer(_ timer: Timer) {
         self.textDocumentProxy.deleteBackward()
@@ -504,13 +527,11 @@ class KeyboardViewController: UIInputViewController {
                 textReviewer.reviewEntireText(proxy: proxy)
             }
             else if (defaults.getJumpToTypoShortcut() == "Swipe up") {
-                
-                //TODO: place jump to typo function here!!!!
+                jumpToTypo()
             }
             else if (defaults.getWordDeletionShortcut() == "Swipe up") {
                 deleteLastWord()
             }
-            
             else if (defaults.getCursorShortcut() == "Swipe up") {
                 jumpToEnd()
             }
@@ -523,13 +544,11 @@ class KeyboardViewController: UIInputViewController {
                 textReviewer.reviewEntireText(proxy: proxy)
             }
             else if (defaults.getJumpToTypoShortcut() == "Swipe down") {
-                
-                //TODO: place jump to typo function here!!!!
+                jumpToTypo()
             }
             else if (defaults.getWordDeletionShortcut() == "Swipe down") {
                 deleteLastWord()
             }
-            
             else if (defaults.getCursorShortcut() == "Swipe down") {
                 jumpToEnd()
             }
@@ -544,8 +563,7 @@ class KeyboardViewController: UIInputViewController {
                 textReviewer.reviewEntireText(proxy: proxy)
             }
             else if (defaults.getJumpToTypoShortcut() == "Swipe left") {
-                
-                //TODO: place jump to typo function here!!!!
+                jumpToTypo()
             }
             else if (defaults.getWordDeletionShortcut() == "Swipe left") {
                 deleteLastWord()
@@ -563,7 +581,7 @@ class KeyboardViewController: UIInputViewController {
                 textReviewer.reviewEntireText(proxy: proxy)
             }
             else if (defaults.getJumpToTypoShortcut() == "Swipe right") {
-                //TODO: place jump to typo function here!!!!
+                jumpToTypo()
             }
             else if (defaults.getWordDeletionShortcut() == "Swipe right") {
                 deleteLastWord()
