@@ -286,7 +286,6 @@ class KeyboardViewController: UIInputViewController {
         case "SPACE" :
             proxy.insertText(" ")
             space = true
-            
 
         case "shift" :
             if caps {
@@ -428,6 +427,8 @@ class KeyboardViewController: UIInputViewController {
             })
     }
     
+
+
     func isLastWordTypo(precedingText: String) -> Bool {
         let sentence = String(precedingText.dropLast())
         let items = sentence.components(separatedBy: " ")
@@ -435,7 +436,6 @@ class KeyboardViewController: UIInputViewController {
         if wordToCheck == "" {
             return false
         }
-        
         let checker = UITextChecker()
         let misspelledRange = checker.rangeOfMisspelledWord(in: wordToCheck, range: NSRange(0..<wordToCheck.utf16.count), startingAt: 0, wrap: false, language: "en_US")
    
@@ -446,10 +446,34 @@ class KeyboardViewController: UIInputViewController {
     func jumpToEnd() {
         let proxy = textDocumentProxy as UITextDocumentProxy
         let preceding = proxy.documentContextAfterInput
+
         let offset = preceding?.count ?? 0
         if offset != 0 {
             proxy.adjustTextPosition(byCharacterOffset: offset)
         }
+    }
+    
+    func jumpToTypo() {
+        let proxy = textDocumentProxy as UITextDocumentProxy
+        let precedingText = proxy.documentContextBeforeInput ?? ""
+        //array of words in text with the last word first
+        let components = precedingText.components(separatedBy: " ").reversed()
+        //number of chars before typo
+        var offset = 0
+        for str in components {
+            let isTypo = isRealWord(word: str)
+            if isTypo {
+                proxy.adjustTextPosition(byCharacterOffset: offset)
+                break
+            }
+            //if not a typo, add word len to offset
+            else{
+                //negative offset bc we are mvoing the cursor backwards
+                //+1 to account for whitespace
+                offset -= (str.count + 1)
+            }
+        }
+   
     }
     
     @objc func handleTimer(_ timer: Timer) {
