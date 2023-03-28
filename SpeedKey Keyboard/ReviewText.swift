@@ -66,6 +66,11 @@ class ReviewText {
          let precedingText = proxy.documentContextBeforeInput ?? ""
          speaker.speak(msg: precedingText)
      }
+    
+    func announceTypedWord(precedingText: String){
+        print("Announcing word")
+        reviewPreviousWords(precedingText: precedingText, count: 1)
+    }
  
  }
 

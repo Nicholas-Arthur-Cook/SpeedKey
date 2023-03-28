@@ -318,6 +318,10 @@ class KeyboardViewController: UIInputViewController {
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
             
+            if(defaults.getTypingMode() == "Announce Words"){
+                textReviewer.announceTypedWord(precedingText: precedingText)
+            }
+            
             let isTypo: Bool = isLastWordTypo(precedingText: precedingText)
             if isTypo {
                 if (defaults.getTypoNotificationOn()) {
@@ -512,6 +516,7 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func determineAction(shortcut: String) {
+        print(defaults.getWordDeletionShortcut())
         let proxy = textDocumentProxy as UITextDocumentProxy
         if (defaults.getEntireTextReviewShortcut() == shortcut) {
             textReviewer.reviewEntireText(proxy: proxy)
@@ -529,6 +534,7 @@ class KeyboardViewController: UIInputViewController {
  
     
     @objc func Swipe(sender: UISwipeGestureRecognizer) {
+        print("SWIPE")
         switch sender.direction {
         case .up:
             determineAction(shortcut: "Swipe up")
