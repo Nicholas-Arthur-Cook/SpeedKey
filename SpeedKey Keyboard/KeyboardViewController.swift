@@ -301,6 +301,10 @@ class KeyboardViewController: UIInputViewController {
             redrawkeyboard()
             
         default :
+            
+            if(defaults.getTypingMode() == "Announce Characters"){
+                textReviewer.announceChar(char: title!)
+            }
 
             if caps {
                 proxy.insertText(title!.uppercased())
@@ -465,7 +469,7 @@ class KeyboardViewController: UIInputViewController {
         //number of chars before typo
         var offset = 0
         for str in components {
-            let isTypo = isRealWord(word: str)
+            let isTypo = isLastWordTypo(precedingText: precedingText)
             if isTypo {
                 proxy.adjustTextPosition(byCharacterOffset: offset)
                 break
