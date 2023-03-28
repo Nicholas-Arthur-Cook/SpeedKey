@@ -23,6 +23,10 @@ class AccessDefaults {
     
     public func getReviewPreivousWordsOn() -> Bool {return getSetting(key: "reviewPreivousWordsOn") as? Bool ?? false}
     
+    public func getTypingMode() -> String {
+        return getSetting(key: "typingMode") as? String ?? "Announce Words"
+    }
+    
     public func getNotificationType() -> String {
         return getSetting(key: "notificationType") as? String ?? "Vibrate"
     }
@@ -32,18 +36,18 @@ class AccessDefaults {
     }
     
     public func getEntireTextReviewShortcut() -> String {
-        return getSetting(key: "entireTextReviewShortcut") as? String ?? defaultShortcut
+        return getSetting(key: "entireTextReviewShortcut") as? String ?? "Swipe up"
     }
     
     public func getJumpToTypoShortcut() -> String {
-        return getSetting(key: "jumpToTypoShortcut") as? String ?? defaultShortcut
+        return getSetting(key: "jumpToTypoShortcut") as? String ?? "Swipe down"
     }
     
     public func getWordDeletionShortcut() -> String {
-        return getSetting(key: "wordDeletionShortcut") as? String ?? defaultShortcut
+        return getSetting(key: "wordDeletionShortcut") as? String ?? "Swipe left"
     }
     
     public func getCursorShortcut() -> String {
-        return getSetting(key: "cursorShortcut") as? String ?? defaultShortcut
+        return getSetting(key: "cursorShortcut") as? String ?? "Swipe right"
     }
 }
