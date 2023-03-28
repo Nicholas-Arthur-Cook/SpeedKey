@@ -12,7 +12,7 @@ let userDefaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
 let notificationOptions = ["Vibrate", "Ding"]
 let previousWordCounts = ["5", "10", "15"]
 let shortcuts = ["Swipe up", "Swipe down", "Swipe right", "Swipe left", "-"]
-let typingModes = ["Announce Words", "Announce Letters"]
+let typingModes = ["Announce Words", "Announce Characters"]
 
 
 struct SettingsMenu: View {

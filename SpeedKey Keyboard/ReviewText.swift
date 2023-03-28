@@ -42,6 +42,7 @@ class Speaker: NSObject, AVSpeechSynthesizerDelegate {
         utterance.voice = voice
         synthesizer.speak(utterance)
     }
+    
 }
 
 
@@ -70,6 +71,10 @@ class ReviewText {
     func announceTypedWord(precedingText: String){
         print("Announcing word")
         reviewPreviousWords(precedingText: precedingText, count: 1)
+    }
+    func announceChar(char: String){
+        print("Announcing char")
+        speaker.speak(msg: char)
     }
  
  }
