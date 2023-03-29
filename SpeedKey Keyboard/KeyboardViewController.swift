@@ -443,8 +443,11 @@ class KeyboardViewController: UIInputViewController {
             precedingText = proxy.documentContextBeforeInput ?? ""
             lastChar = (precedingText.count != 0) ? precedingText[precedingText.index(before: precedingText.endIndex)] : " "
         }
-        speaker.speak(msg: "Deleted word")
-        speaker.speak(msg: wordDeleted)
+        if wordDeleted != "" {
+            speaker.speak(msg: "Deleted word")
+            speaker.speak(msg: wordDeleted)
+        }
+        else {speaker.speak(msg: "No words left")}
         
         self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
             proxy.insertText(wordDeleted + " ")
