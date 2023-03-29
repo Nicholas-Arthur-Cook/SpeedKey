@@ -321,12 +321,15 @@ class KeyboardViewController: UIInputViewController {
             
             let proxy = textDocumentProxy as UITextDocumentProxy
             let precedingText = proxy.documentContextBeforeInput ?? ""
+            let sentence = String(precedingText.dropLast())
+            let items = sentence.components(separatedBy: " ")
+            let lastWord = items.last ?? ""
             
             if(defaults.getTypingMode() == "Announce Words"){
                 textReviewer.announceTypedWord(precedingText: precedingText)
             }
             
-            let isTypo: Bool = isLastWordTypo(precedingText: precedingText)
+            let isTypo: Bool = isWordTypo(word: lastWord)
             if isTypo {
                 if (defaults.getTypoNotificationOn()) {
                     if (defaults.getNotificationType() == "Vibrate") { // Vibrate
@@ -437,15 +440,12 @@ class KeyboardViewController: UIInputViewController {
     
 
 
-    func isLastWordTypo(precedingText: String) -> Bool {
-        let sentence = String(precedingText.dropLast())
-        let items = sentence.components(separatedBy: " ")
-        let wordToCheck = items.last ?? ""
-        if wordToCheck == "" {
+    func isWordTypo(word: String) -> Bool {
+        if word == "" {
             return false
         }
         let checker = UITextChecker()
-        let misspelledRange = checker.rangeOfMisspelledWord(in: wordToCheck, range: NSRange(0..<wordToCheck.utf16.count), startingAt: 0, wrap: false, language: "en_US")
+        let misspelledRange = checker.rangeOfMisspelledWord(in: word, range: NSRange(0..<word.utf16.count), startingAt: 0, wrap: false, language: "en_US")
    
         return misspelledRange.location != NSNotFound
     }
@@ -469,7 +469,7 @@ class KeyboardViewController: UIInputViewController {
         //number of chars before typo
         var offset = 0
         for str in components {
-            let isTypo = isLastWordTypo(precedingText: precedingText)
+            let isTypo = isWordTypo(word: str)
             if isTypo {
                 proxy.adjustTextPosition(byCharacterOffset: offset)
                 break
@@ -526,7 +526,7 @@ class KeyboardViewController: UIInputViewController {
             textReviewer.reviewEntireText(proxy: proxy)
         }
         else if (defaults.getJumpToTypoShortcut() == shortcut) {
-            //TODO: place jump to typo function here!!!!
+            jumpToTypo()
         }
         else if (defaults.getWordDeletionShortcut() == shortcut) {
             deleteLastWord()
