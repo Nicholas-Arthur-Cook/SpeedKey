@@ -443,6 +443,11 @@ class KeyboardViewController: UIInputViewController {
             precedingText = proxy.documentContextBeforeInput ?? ""
             lastChar = (precedingText.count != 0) ? precedingText[precedingText.index(before: precedingText.endIndex)] : " "
         }
+        if wordDeleted != "" {
+            speaker.speak(msg: "Deleted word")
+            speaker.speak(msg: wordDeleted)
+        }
+        else {speaker.speak(msg: "No words left")}
         
         self.undoManager?.registerUndo(withTarget: self, handler: { (selfTarget) in
             proxy.insertText(wordDeleted + " ")
@@ -469,6 +474,10 @@ class KeyboardViewController: UIInputViewController {
         let offset = preceding?.count ?? 0
         if offset != 0 {
             proxy.adjustTextPosition(byCharacterOffset: offset)
+            speaker.speak(msg: "Jumped to end")
+        }
+        else {
+            speaker.speak(msg: "Already at end")
         }
     }
     
@@ -479,11 +488,13 @@ class KeyboardViewController: UIInputViewController {
         let components = precedingText.components(separatedBy: " ").reversed()
         //number of chars before typo
         var offset = 0
+        var noTypos = true
         for str in components {
             let isTypo = isWordTypo(word: str)
             if isTypo {
+                noTypos = false
                 proxy.adjustTextPosition(byCharacterOffset: offset)
-                speaker.speak(msg: "Jumped to Typo")
+                speaker.speak(msg: "Jumped to typo")
                 speaker.speak(msg: str)
                 break
             }
@@ -494,6 +505,7 @@ class KeyboardViewController: UIInputViewController {
                 offset -= (str.count + 1)
             }
         }
+        if noTypos {speaker.speak(msg: "No typo found")}
    
     }
     
@@ -543,11 +555,9 @@ class KeyboardViewController: UIInputViewController {
         }
         else if (defaults.getWordDeletionShortcut() == shortcut) {
             deleteLastWord()
-            speaker.speak(msg: "Deleted word")
         }
         else if (defaults.getCursorShortcut() == shortcut) {
             jumpToEnd()
-            speaker.speak(msg: "Jumped to end")
         }
     }
  
