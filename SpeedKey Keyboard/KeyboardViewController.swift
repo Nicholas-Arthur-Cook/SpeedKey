@@ -23,6 +23,7 @@ class KeyboardViewController: UIInputViewController {
 
     let defaults = AccessDefaults()
     let textReviewer = ReviewText()
+    let speaker = Speaker()
     var typedWordCount = 0
 
     override func updateViewConstraints() {
@@ -268,6 +269,10 @@ class KeyboardViewController: UIInputViewController {
         var space: Bool = false
         let proxy = textDocumentProxy as UITextDocumentProxy
 
+        if(defaults.getPreviousWordReviewMode() == "Characters"){
+            textReviewer.announceChar(char: title!)
+        }
+        
         //need lower/uppercase for shift funtionality
         switch title {
         case "delete" :
@@ -302,9 +307,6 @@ class KeyboardViewController: UIInputViewController {
             
         default :
             
-            if(defaults.getTypingMode() == "Announce Characters"){
-                textReviewer.announceChar(char: title!)
-            }
 
             if caps {
                 proxy.insertText(title!.uppercased())
@@ -325,9 +327,6 @@ class KeyboardViewController: UIInputViewController {
             let items = sentence.components(separatedBy: " ")
             let lastWord = items.last ?? ""
             
-            if(defaults.getTypingMode() == "Announce Words"){
-                textReviewer.announceTypedWord(precedingText: precedingText)
-            }
             
             let isTypo: Bool = isWordTypo(word: lastWord)
             if isTypo {
@@ -343,7 +342,19 @@ class KeyboardViewController: UIInputViewController {
                 if (defaults.getAutoDeleteOn()) {deleteLastWord()}
             } // isTypo
             
-            let previousWordReviewCount = defaults.getPreviousWordReviewCount()
+            var previousWordReviewCount = 0
+            if (defaults.getPreviousWordReviewMode() == "Words") {
+                previousWordReviewCount = 1
+            }
+            else if (defaults.getPreviousWordReviewMode() == "5 Words") {
+                previousWordReviewCount = 5
+            }
+            else if (defaults.getPreviousWordReviewMode() == "10 Words") {
+                previousWordReviewCount = 10
+            }
+            else if (defaults.getPreviousWordReviewMode() == "15 Words") {
+                previousWordReviewCount = 15
+            }
             if (defaults.getReviewPreivousWordsOn() && typedWordCount == previousWordReviewCount) {
                 typedWordCount = 0
                 textReviewer.reviewPreviousWords(precedingText: precedingText, count: previousWordReviewCount)
@@ -472,6 +483,8 @@ class KeyboardViewController: UIInputViewController {
             let isTypo = isWordTypo(word: str)
             if isTypo {
                 proxy.adjustTextPosition(byCharacterOffset: offset)
+                speaker.speak(msg: "Jumped to Typo")
+                speaker.speak(msg: str)
                 break
             }
             //if not a typo, add word len to offset
@@ -530,9 +543,11 @@ class KeyboardViewController: UIInputViewController {
         }
         else if (defaults.getWordDeletionShortcut() == shortcut) {
             deleteLastWord()
+            speaker.speak(msg: "Deleted word")
         }
         else if (defaults.getCursorShortcut() == shortcut) {
             jumpToEnd()
+            speaker.speak(msg: "Jumped to end")
         }
     }
  

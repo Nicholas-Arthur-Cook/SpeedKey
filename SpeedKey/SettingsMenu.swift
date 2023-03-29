@@ -10,9 +10,8 @@ import SwiftUI
 
 let userDefaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
 let notificationOptions = ["Vibrate", "Ding"]
-let previousWordCounts = ["5", "10", "15"]
 let shortcuts = ["Swipe up", "Swipe down", "Swipe right", "Swipe left", "-"]
-let typingModes = ["Announce Words", "Announce Characters"]
+let reviewCounts = ["Characters", "Words", "5 Words", "10 Words", "15 Words"]
 
 
 struct SettingsMenu: View {
@@ -44,7 +43,6 @@ struct SettingsMenu: View {
         case selectShortcutJumpTypo = "Select shortcut to jump to typo"
         case selectShortcutWordDeletion = "Select shortcut to delete word"
         case selectShortcutMoveCursor = "Select shortcut to move cursor to end"
-        case selectTypingMode = "Select a typing mode"
         var id: Self { self }
     }
     
@@ -54,14 +52,13 @@ struct SettingsMenu: View {
     @AppStorage("reviewPreivousWordsOn", store: userDefaults) var reviewPreivousWordsOn = false
     
     @AppStorage("notificationType", store: userDefaults) var notificationType = notificationOptions[0]
-    @AppStorage("previousWordReviewCount", store: userDefaults) var previousWordReviewCount = previousWordCounts[0]
+    @AppStorage("previousWordReviewMode", store: userDefaults) var previousWordReviewMode = reviewCounts[1]
     
     @AppStorage("entireTextReviewShortcut", store: userDefaults) var entireTextReviewShortcut = shortcuts[0]
     @AppStorage("jumpToTypoShortcut", store: userDefaults) var jumpToTypoShortcut = shortcuts[1]
     @AppStorage("wordDeletionShortcut", store: userDefaults) var wordDeletionShortcut = shortcuts[2]
     @AppStorage("cursorShortcut", store: userDefaults) var cursorShortcut = shortcuts[3]
     
-    @AppStorage("typingMode", store: userDefaults) var typingMode = typingModes[0]
     
     
     var body: some View {
@@ -101,14 +98,14 @@ struct SettingsMenu: View {
                 }
                 
                 // Review Previous Words Toggle
-                Toggle("Enable review of previous 5, 10, or 15 words", isOn: $reviewPreivousWordsOn)
+                Toggle("Enable review of typed text", isOn: $reviewPreivousWordsOn)
                     .id(Identifiers.reviewPreviousWordsToggle.rawValue)
                     .accessibilityIdentifier(Identifiers.reviewPreviousWordsToggle.rawValue)
                     .accessibilityHint(reviewPreivousWordsOn ? Hints.disableWordReview.rawValue : Hints.enableWordReview.rawValue)
                 
                 if reviewPreivousWordsOn{
-                    Picker("Word count:", selection: $previousWordReviewCount) {
-                        ForEach(previousWordCounts, id: \.self) {
+                    Picker("Mode:", selection: $previousWordReviewMode) {
+                        ForEach(reviewCounts, id: \.self) {
                             Text($0)
                                 .accessibilityLabel("\($0) words")
                         }
@@ -116,18 +113,6 @@ struct SettingsMenu: View {
                     .pickerStyle(.menu)
                     .accessibilityHint(Hints.selectReviewWordCount.rawValue)
                 }
-                VStack {
-                    Picker("Select Typing Mode", selection: $typingMode) {
-                        ForEach(typingModes, id: \.self) {
-                            Text($0)
-                                .accessibilityLabel("\($0)")
-                        }
-                    }
-                    .id(Identifiers.typingModePicker.rawValue)
-                    .accessibilityIdentifier(Identifiers.typingModePicker.rawValue)
-                    .accessibilityHint(Hints.selectTypingMode.rawValue)
-                }
-                .pickerStyle(.segmented)
                 
             } // Section
             

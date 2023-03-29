@@ -23,16 +23,13 @@ class AccessDefaults {
     
     public func getReviewPreivousWordsOn() -> Bool {return getSetting(key: "reviewPreivousWordsOn") as? Bool ?? false}
     
-    public func getTypingMode() -> String {
-        return getSetting(key: "typingMode") as? String ?? "Announce Words"
-    }
     
     public func getNotificationType() -> String {
         return getSetting(key: "notificationType") as? String ?? "Vibrate"
     }
     
-    public func getPreviousWordReviewCount() -> Int {
-        return Int(getSetting(key: "previousWordReviewCount") as? String ?? "5") ?? 5
+    public func getPreviousWordReviewMode() -> String {
+        return getSetting(key: "previousWordReviewMode") as? String ?? "Words"
     }
     
     public func getEntireTextReviewShortcut() -> String {
