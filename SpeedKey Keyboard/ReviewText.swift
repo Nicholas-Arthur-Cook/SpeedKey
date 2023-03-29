@@ -68,10 +68,6 @@ class ReviewText {
          speaker.speak(msg: precedingText)
      }
     
-    func announceTypedWord(precedingText: String){
-        print("Announcing word")
-        reviewPreviousWords(precedingText: precedingText, count: 1)
-    }
     func announceChar(char: String){
         print("Announcing char")
         speaker.speak(msg: char)
