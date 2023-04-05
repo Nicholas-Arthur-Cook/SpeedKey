@@ -428,7 +428,7 @@ class KeyboardViewController: UIInputViewController {
         var lastChar = (precedingText.count != 0) ? precedingText[precedingText.index(before: precedingText.endIndex)] : " "
         var wordDeleted = ""
         
-        if (lastChar == " "){
+        if (lastChar == " " || lastChar == "\n"){
             // Probably from multiple delete actions in a row
             proxy.deleteBackward()
             precedingText = proxy.documentContextBeforeInput ?? ""
@@ -436,8 +436,8 @@ class KeyboardViewController: UIInputViewController {
         }
         
         
-        // Delete every character up to a space, or the start of the input field
-        while(lastChar != " "){
+        // Delete every character up to a space or newline, or the start of the input field
+        while(lastChar != " " && lastChar != "\n"){
             wordDeleted = String(lastChar) + wordDeleted
             proxy.deleteBackward()
             precedingText = proxy.documentContextBeforeInput ?? ""
