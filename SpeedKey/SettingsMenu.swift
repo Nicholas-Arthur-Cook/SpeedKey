@@ -16,7 +16,6 @@ let reviewCounts = ["Characters", "Words", "5 Words", "10 Words", "15 Words"]
 
 struct SettingsMenu: View {
     enum Identifiers: String, CaseIterable, Identifiable {
-        case speedKeyToggle
         case autoDeleteToggle
         case typoNotificationToggle
         case reviewPreviousWordsToggle
@@ -29,8 +28,6 @@ struct SettingsMenu: View {
     }
     
     enum Hints: String, CaseIterable, Identifiable {
-        case enableSpeedKey = "Double tap to enable SpeedKey"
-        case disableSpeedKey = "Double tap to disable SpeedKey"
         case enableAutoDelete = "Double tap to enable auto-delete on typo"
         case disableAutoDelete = "Double tap to disable auto-delete on typo"
         case enableTypoNotification = "Double tap to dnable typo notification"
@@ -46,7 +43,6 @@ struct SettingsMenu: View {
         var id: Self { self }
     }
     
-    @AppStorage("speedKeyOn", store: userDefaults) var speedKeyOn = false
     @AppStorage("autoDeleteOn", store: userDefaults) var autoDeleteOn = false
     @AppStorage("typoNotificationOn", store: userDefaults) var typoNotificationOn = false
     @AppStorage("reviewPreivousWordsOn", store: userDefaults) var reviewPreivousWordsOn = false
@@ -64,14 +60,6 @@ struct SettingsMenu: View {
     var body: some View {
         
         VStack {
-            Section { // Enable SpeedKey
-                Toggle("Enable SpeedKey", isOn: $speedKeyOn)
-                    .id(Identifiers.speedKeyToggle.rawValue)
-                    .accessibilityIdentifier(Identifiers.speedKeyToggle.rawValue)
-                    .accessibilityHint(speedKeyOn ? Hints.disableSpeedKey.rawValue : Hints.enableSpeedKey.rawValue)
-            } // Section
-            .padding([.bottom], 20)
-                
             Section { // Toggles
                 
                 // Auto Delete Toggle

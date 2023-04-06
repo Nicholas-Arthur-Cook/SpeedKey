@@ -15,8 +15,6 @@ class AccessDefaults {
     
     private let defaultShortcut = "-"
     
-    public func getSpeedKeyOn() -> Bool {return getSetting(key: "speedKeyOn") as? Bool ?? false}
-    
     public func getAutoDeleteOn() -> Bool {return getSetting(key: "autoDeleteOn") as? Bool ?? false}
     
     public func getTypoNotificationOn() -> Bool {return getSetting(key: "typoNotificationOn") as? Bool ?? false}

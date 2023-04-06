@@ -12,7 +12,7 @@ struct ContentView: View {
     enum Labels: String, CaseIterable, Identifiable {
         case speedKey = "SpeedKey App"
         case welcomeMessage = "Welcome to SpeedKey! The fast and accurate typing keyboard!"
-        case enableSpeedKey = "Enable SpeedKey"
+        case settingsMenu = "Settings Menu"
         case practiceMode = "Enter Practice Mode"
         case learnMore = "Learn More About SpeedKey"
         var id: Self { self }
@@ -38,8 +38,8 @@ struct ContentView: View {
                             .accessibilityLabel(Labels.welcomeMessage.rawValue)
                         
                         NavigationLink(destination: SettingsMenu()) {
-                            Text("Enable SpeedKey")
-                                .accessibilityLabel(Labels.enableSpeedKey.rawValue)
+                            Text("Settings Menu")
+                                .accessibilityLabel(Labels.settingsMenu.rawValue)
                         }
                         .padding([.bottom], 60)
                         

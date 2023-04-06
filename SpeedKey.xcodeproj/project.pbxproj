@@ -534,7 +534,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SpeedKey/Preview Content\"";
-				DEVELOPMENT_TEAM = TDWTFTQ782;
+				DEVELOPMENT_TEAM = Y4TVAQPG2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -565,7 +565,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SpeedKey/Preview Content\"";
-				DEVELOPMENT_TEAM = TDWTFTQ782;
+				DEVELOPMENT_TEAM = Y4TVAQPG2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -664,7 +664,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SpeedKey Keyboard/SpeedKey Keyboard.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TDWTFTQ782;
+				DEVELOPMENT_TEAM = Y4TVAQPG2A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SpeedKey Keyboard/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SpeedKey Keyboard";
@@ -690,7 +690,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SpeedKey Keyboard/SpeedKey Keyboard.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TDWTFTQ782;
+				DEVELOPMENT_TEAM = Y4TVAQPG2A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SpeedKey Keyboard/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SpeedKey Keyboard";
