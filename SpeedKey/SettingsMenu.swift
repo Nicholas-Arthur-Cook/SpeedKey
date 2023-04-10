@@ -55,7 +55,23 @@ struct SettingsMenu: View {
     @AppStorage("wordDeletionShortcut", store: userDefaults) var wordDeletionShortcut = shortcuts[2]
     @AppStorage("cursorShortcut", store: userDefaults) var cursorShortcut = shortcuts[3]
     
-    
+    /**
+            Ensure there are no duplicate gestures selected in the Customize Shortcuts section.
+     */
+    func validGestures(gestureToCheck: inout String, forShortcut: String) {
+        if gestureToCheck == entireTextReviewShortcut && forShortcut != "review" {
+            entireTextReviewShortcut = shortcuts[4]
+        }
+        if gestureToCheck == jumpToTypoShortcut && forShortcut != "typo" {
+            jumpToTypoShortcut = shortcuts[4]
+        }
+        if gestureToCheck == wordDeletionShortcut && forShortcut != "delete" {
+            wordDeletionShortcut = shortcuts[4]
+        }
+        if gestureToCheck == cursorShortcut && forShortcut != "cursor" {
+            cursorShortcut = shortcuts[4]
+        }
+    }
     
     var body: some View {
         
@@ -106,6 +122,8 @@ struct SettingsMenu: View {
             
             Section { // Shortcuts
                 Text("Customize Shortcuts:")
+                Text("Please select each gesture at most once")
+                    .font(.caption)
                 
                 List {
                     Picker("Review entire text", selection: $entireTextReviewShortcut) {
@@ -117,6 +135,9 @@ struct SettingsMenu: View {
                         .accessibilityIdentifier(Identifiers.reviewEntireTextPicker.rawValue)
                         .accessibilityHint(Hints.selectShortcutReviewText.rawValue)
                     }
+                    .onChange(of: entireTextReviewShortcut) { _ in
+                        validGestures(gestureToCheck: &entireTextReviewShortcut, forShortcut: "review")
+                    }
                     
                     Picker("Jump to typo", selection: $jumpToTypoShortcut) {
                         ForEach(shortcuts, id: \.self) {
@@ -126,6 +147,9 @@ struct SettingsMenu: View {
                         .id(Identifiers.jumpToTypoPicker.rawValue)
                         .accessibilityIdentifier(Identifiers.jumpToTypoPicker.rawValue)
                         .accessibilityHint(Hints.selectShortcutJumpTypo.rawValue)
+                    }
+                    .onChange(of: jumpToTypoShortcut) { _ in
+                        validGestures(gestureToCheck: &jumpToTypoShortcut, forShortcut: "typo")
                     }
                     
                     Picker("Word deletion", selection: $wordDeletionShortcut) {
@@ -137,6 +161,9 @@ struct SettingsMenu: View {
                         .accessibilityIdentifier(Identifiers.wordDeletionPicker.rawValue)
                         .accessibilityHint(Hints.selectShortcutWordDeletion.rawValue)
                     }
+                    .onChange(of: wordDeletionShortcut) { _ in
+                        validGestures(gestureToCheck: &wordDeletionShortcut, forShortcut: "delete")
+                    }
                     
                     Picker("Move cursor to end", selection: $cursorShortcut) {
                         ForEach(shortcuts, id: \.self) {
@@ -146,6 +173,9 @@ struct SettingsMenu: View {
                         .id(Identifiers.cursorPicker.rawValue)
                         .accessibilityIdentifier(Identifiers.cursorPicker.rawValue)
                         .accessibilityHint(Hints.selectShortcutMoveCursor.rawValue)
+                    }
+                    .onChange(of: cursorShortcut) { _ in
+                        validGestures(gestureToCheck: &cursorShortcut, forShortcut: "cursor")
                     }
                 } // List
                 
