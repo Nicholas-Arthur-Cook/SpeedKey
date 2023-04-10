@@ -75,8 +75,8 @@ struct SettingsMenu: View {
     
     var body: some View {
         
-        VStack {
-            Section { // Toggles
+        Form {
+            Section(header: Text("Typo Settings")) {
                 
                 // Auto Delete Toggle
                 Toggle("Enable auto-delete on typo", isOn: $autoDeleteOn)
@@ -91,40 +91,43 @@ struct SettingsMenu: View {
                     .accessibilityHint(typoNotificationOn ? Hints.disableTypoNotification.rawValue : Hints.enableTypoNotification.rawValue)
                 
                 if typoNotificationOn{
-                    Picker("Select notification type", selection: $notificationType) {
+                    Picker("Notification type", selection: $notificationType) {
                         ForEach(notificationOptions, id: \.self) {
                             Text($0)
                                 .accessibilityLabel("\($0) on typo")
                         }
                     }
-                    .pickerStyle(.menu)
                     .accessibilityHint(Hints.selectTypoNotification.rawValue)
                 }
-                
+            } // Section
+            
+            Section(header: Text("Text Review Settings")) {
                 // Review Previous Words Toggle
-                Toggle("Enable review of typed text", isOn: $reviewPreivousWordsOn)
+                Toggle("Enable automatic review of typed text", isOn: $reviewPreivousWordsOn)
                     .id(Identifiers.reviewPreviousWordsToggle.rawValue)
                     .accessibilityIdentifier(Identifiers.reviewPreviousWordsToggle.rawValue)
                     .accessibilityHint(reviewPreivousWordsOn ? Hints.disableWordReview.rawValue : Hints.enableWordReview.rawValue)
                 
                 if reviewPreivousWordsOn{
-                    Picker("Mode:", selection: $previousWordReviewMode) {
+                    Picker("Mode", selection: $previousWordReviewMode) {
                         ForEach(reviewCounts, id: \.self) {
                             Text($0)
                                 .accessibilityLabel("\($0)")
                         }
                     }
-                    .pickerStyle(.menu)
                     .accessibilityHint(Hints.selectReviewWordCount.rawValue)
                 }
                 
             } // Section
             
-            Section { // Shortcuts
-                Text("Customize Shortcuts:")
-                Text("Please select each gesture at most once")
-                    .font(.caption)
-                
+            Section(header:
+                        VStack(alignment: .leading) {
+                            Text("Shortcuts")
+                            Text("select each gesture at most once")
+                                .font(.caption)
+                                .textCase(.lowercase)
+                        }
+            ) {
                 List {
                     Picker("Review entire text", selection: $entireTextReviewShortcut) {
                         ForEach(shortcuts, id: \.self) {
@@ -181,7 +184,7 @@ struct SettingsMenu: View {
                 
             } // Section
             
-        } // VStack
+        } // Form
         .padding()
     }
 }
