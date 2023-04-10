@@ -60,6 +60,18 @@ class ReviewText {
         print("words to say: ", lastWords)
         speaker.speak(msg: lastWords)
      }
+    
+    func reviewPreviousSentence(proxy: UITextDocumentProxy){
+        print("reviewPreviousSentence was called")
+        let precedingText = proxy.documentContextBeforeInput ?? ""
+        let split = precedingText.split(separator: ".")
+        if let sentence = split.last{
+            let output = String(sentence)
+            speaker.speak(msg: output)
+        }
+//        let lastSentence = String(split)
+//        speaker.speak(msg: lastSentence)
+    }
  
     
      func reviewEntireText(proxy: UITextDocumentProxy) {

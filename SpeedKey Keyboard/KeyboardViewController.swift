@@ -273,6 +273,10 @@ class KeyboardViewController: UIInputViewController {
             textReviewer.announceChar(char: title!)
         }
         
+        if(defaults.getPreviousWordReviewMode() == "Sentences" && title=="."){
+            textReviewer.reviewPreviousSentence(proxy: proxy)
+        }
+        
         //need lower/uppercase for shift funtionality
         switch title {
         case "delete" :

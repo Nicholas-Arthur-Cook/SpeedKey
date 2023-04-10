@@ -11,7 +11,7 @@ import SwiftUI
 let userDefaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
 let notificationOptions = ["Vibrate", "Ding"]
 let shortcuts = ["Swipe up", "Swipe down", "Swipe right", "Swipe left", "-"]
-let reviewCounts = ["Characters", "Words", "5 Words", "10 Words", "15 Words"]
+let reviewCounts = ["Characters", "Words", "5 Words", "10 Words", "15 Words", "Sentences"]
 
 
 struct SettingsMenu: View {
@@ -95,7 +95,7 @@ struct SettingsMenu: View {
                     Picker("Mode:", selection: $previousWordReviewMode) {
                         ForEach(reviewCounts, id: \.self) {
                             Text($0)
-                                .accessibilityLabel("\($0) words")
+                                .accessibilityLabel("\($0)")
                         }
                     }
                     .pickerStyle(.menu)
