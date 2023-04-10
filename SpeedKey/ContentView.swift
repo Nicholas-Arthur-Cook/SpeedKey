@@ -38,7 +38,7 @@ struct ContentView: View {
                             .accessibilityLabel(Labels.welcomeMessage.rawValue)
                         
                         NavigationLink(destination: SettingsMenu()) {
-                            Text("Settings Menu")
+                            Text("Settings")
                                 .accessibilityLabel(Labels.settingsMenu.rawValue)
                         }
                         .padding([.bottom], 60)
