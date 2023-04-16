@@ -74,7 +74,6 @@ struct SettingsMenu: View {
     }
     
     var body: some View {
-        
         Form {
             Section(header: Text("Typo Settings")) {
                 
@@ -99,6 +98,11 @@ struct SettingsMenu: View {
                     }
                     .accessibilityHint(Hints.selectTypoNotification.rawValue)
                 }
+                
+                NavigationLink(destination: FrequentTypos()) {
+                    Text("Specify Frequently Used Typos")
+                }
+                
             } // Section
             
             Section(header: Text("Text Review Settings")) {

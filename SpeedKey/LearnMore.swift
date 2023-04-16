@@ -36,6 +36,9 @@ struct LearnMore: View {
                         Spacer()
                         Text("Enabling typo notification and notification type will inform user a word was mispelled through a vibration or ding sound.")
                             .fixedSize(horizontal: false, vertical: true)
+                        Spacer()
+                        Text("Specify frequently used typos for the keyboard to ignore when analyzing text. Could include names not recognized by the dictionary, acronyms, and more.")
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                     Spacer()
                     Section {

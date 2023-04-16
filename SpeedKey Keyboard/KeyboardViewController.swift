@@ -461,7 +461,7 @@ class KeyboardViewController: UIInputViewController {
 
 
     func isWordTypo(word: String) -> Bool {
-        if word == "" {
+        if word == "" || defaults.getFreqTypos().contains(word.lowercased()) {
             return false
         }
         let checker = UITextChecker()
