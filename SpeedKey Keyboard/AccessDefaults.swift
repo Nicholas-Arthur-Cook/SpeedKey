@@ -45,4 +45,8 @@ class AccessDefaults {
     public func getCursorShortcut() -> String {
         return getSetting(key: "cursorShortcut") as? String ?? "Swipe right"
     }
+    
+    public func getFreqTypos() -> [String] {
+        return getSetting(key: "freqTypos") as? [String] ?? [""]
+    }
 }
