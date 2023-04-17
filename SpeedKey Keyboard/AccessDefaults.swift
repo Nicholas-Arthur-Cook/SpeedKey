@@ -9,7 +9,7 @@ import Foundation
 
 class AccessDefaults {
     private func getSetting(key: String) -> Any? {
-        let defaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
+        let defaults = UserDefaults(suiteName: "group.eecs485.SpeedKey")
         return defaults?.object(forKey: key)
     }
     
@@ -46,7 +46,13 @@ class AccessDefaults {
         return getSetting(key: "cursorShortcut") as? String ?? "Swipe right"
     }
     
+    public func getUndoShortcut() -> String {
+        return getSetting(key: "undoShortcut") as? String ?? defaultShortcut 
+    }
+    
     public func getFreqTypos() -> [String] {
         return getSetting(key: "freqTypos") as? [String] ?? [""]
     }
+    
+    
 }

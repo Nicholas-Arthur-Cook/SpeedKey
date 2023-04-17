@@ -485,6 +485,18 @@ class KeyboardViewController: UIInputViewController {
         }
     }
     
+    func undoAction() {
+        
+        if(self.undoManager?.canUndo ?? false){
+            self.undoManager?.undo()
+            speaker.speak(msg: "Undid action")
+        }
+        else{
+            speaker.speak(msg: "Nothing to undo")
+        }
+        
+    }
+    
     func jumpToTypo() {
         let proxy = textDocumentProxy as UITextDocumentProxy
         let precedingText = proxy.documentContextBeforeInput ?? ""
@@ -562,6 +574,9 @@ class KeyboardViewController: UIInputViewController {
         }
         else if (defaults.getCursorShortcut() == shortcut) {
             jumpToEnd()
+        }
+        else if (defaults.getUndoShortcut() == shortcut) {
+            undoAction()
         }
     }
  
