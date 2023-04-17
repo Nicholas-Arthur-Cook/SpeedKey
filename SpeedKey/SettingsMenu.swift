@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-let userDefaults = UserDefaults(suiteName: "group.eecs495.SpeedKey")
+let userDefaults = UserDefaults(suiteName: "group.eecs485.SpeedKey")
 let notificationOptions = ["Vibrate", "Ding"]
 let shortcuts = ["Swipe up", "Swipe down", "Swipe right", "Swipe left", "-"]
 let reviewCounts = ["Characters", "Words", "5 Words", "10 Words", "15 Words", "Sentences"]
@@ -23,6 +23,7 @@ struct SettingsMenu: View {
         case jumpToTypoPicker
         case wordDeletionPicker
         case cursorPicker
+        case undoPicker
         case typingModePicker
         var id: Self { self }
     }
@@ -40,6 +41,7 @@ struct SettingsMenu: View {
         case selectShortcutJumpTypo = "Select shortcut to jump to typo"
         case selectShortcutWordDeletion = "Select shortcut to delete word"
         case selectShortcutMoveCursor = "Select shortcut to move cursor to end"
+        case selectShortcutUndo = "Select shortcut to undo SpeedKey actions"
         var id: Self { self }
     }
     
@@ -54,6 +56,7 @@ struct SettingsMenu: View {
     @AppStorage("jumpToTypoShortcut", store: userDefaults) var jumpToTypoShortcut = shortcuts[1]
     @AppStorage("wordDeletionShortcut", store: userDefaults) var wordDeletionShortcut = shortcuts[2]
     @AppStorage("cursorShortcut", store: userDefaults) var cursorShortcut = shortcuts[3]
+    @AppStorage("undoShortcut", store: userDefaults) var undoShortcut = shortcuts[4]
     
     /**
             Ensure there are no duplicate gestures selected in the Customize Shortcuts section.
@@ -69,6 +72,9 @@ struct SettingsMenu: View {
             wordDeletionShortcut = shortcuts[4]
         }
         if gestureToCheck == cursorShortcut && forShortcut != "cursor" {
+            cursorShortcut = shortcuts[4]
+        }
+        if gestureToCheck == undoShortcut && forShortcut != "undo" {
             cursorShortcut = shortcuts[4]
         }
     }
@@ -183,6 +189,19 @@ struct SettingsMenu: View {
                     }
                     .onChange(of: cursorShortcut) { _ in
                         validGestures(gestureToCheck: &cursorShortcut, forShortcut: "cursor")
+                    }
+                    
+                    Picker("Undo change", selection: $undoShortcut) {
+                        ForEach(shortcuts, id: \.self) {
+                            Text($0)
+                                .accessibilityLabel("\($0)")
+                        }
+                        .id(Identifiers.undoPicker.rawValue)
+                        .accessibilityIdentifier(Identifiers.undoPicker.rawValue)
+                        .accessibilityHint(Hints.selectShortcutUndo.rawValue)
+                    }
+                    .onChange(of: cursorShortcut) { _ in
+                        validGestures(gestureToCheck: &cursorShortcut, forShortcut: "undo")
                     }
                 } // List
                 
