@@ -75,7 +75,7 @@ struct SettingsMenu: View {
             cursorShortcut = shortcuts[4]
         }
         if gestureToCheck == undoShortcut && forShortcut != "undo" {
-            cursorShortcut = shortcuts[4]
+            undoShortcut = shortcuts[4]
         }
     }
     
@@ -200,8 +200,8 @@ struct SettingsMenu: View {
                         .accessibilityIdentifier(Identifiers.undoPicker.rawValue)
                         .accessibilityHint(Hints.selectShortcutUndo.rawValue)
                     }
-                    .onChange(of: cursorShortcut) { _ in
-                        validGestures(gestureToCheck: &cursorShortcut, forShortcut: "undo")
+                    .onChange(of: undoShortcut) { _ in
+                        validGestures(gestureToCheck: &undoShortcut, forShortcut: "undo")
                     }
                 } // List
                 

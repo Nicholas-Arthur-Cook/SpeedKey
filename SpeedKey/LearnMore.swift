@@ -44,6 +44,10 @@ struct LearnMore: View {
                         Spacer()
                         Text("Enabling typo notification and notification type will inform user a word was mispelled through a vibration or ding sound.")
                             .fixedSize(horizontal: false, vertical: true)
+                        Spacer()
+                        Text("Specify frequently used typos for the keyboard to ignore when analyzing text. Could include names not recognized by the dictionary, acronyms, and more.")
+                            .fixedSize(horizontal: false, vertical: true)
+                        
                     }
                     Spacer()
                         .padding(5)
@@ -84,12 +88,12 @@ struct LearnMore: View {
                 }
                 Spacer()
                 Spacer()
-//                Section { // Keyboard specific features
-//                    Text("Keyboard specific features").font(.title2)
-//                    Spacer()
-//                    Text("Long press on space bar will reveal another keyboard with numbers and special characters.")
-//                        .fixedSize(horizontal: false, vertical: true)
-//                }
+                Section { // Keyboard specific features
+                    Text("Keyboard specific features").font(.title2)
+                    Spacer()
+                    Text("Long press on space bar will reveal another keyboard with numbers and special characters.")
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
         }
     }
